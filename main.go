@@ -2,6 +2,7 @@ package main
 
 import(
 	"net/http"
+	"fmt"
 )
 
 type config struct{
@@ -17,5 +18,9 @@ func main(){
 		Handler: mux,
 	}
 
-	srv.ListenAndServe()
+	fmt.Printf("Starting server on port %s\n", port)
+	err = server.ListenAndServe()
+	if err != nil {
+		fmt.Printf("Unable to start server: %v\n", err)
+	}
 }
