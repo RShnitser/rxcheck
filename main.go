@@ -1,11 +1,11 @@
 package main
 
-import _ "github.com/lib/pq"
 import(
+	_ "github.com/lib/pq"
 	"net/http"
 	"fmt"
 	"os"
-	"rxcheck/components"
+	"rxcheck/templates"
 
 	"github.com/a-h/templ"
 	"github.com/joho/godotenv"
@@ -26,8 +26,8 @@ func main(){
 	const port = "8080"
 	mux := http.NewServeMux()
 	
-	indexComponent := components.Index("test")
-	mux.Handle("/", templ.Handler(indexComponent))
+	index := templates.Index("test")
+	mux.Handle("/", templ.Handler(index))
 
 	server := &http.Server{
 		Addr:    ":" + port,
