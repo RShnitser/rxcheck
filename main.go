@@ -4,8 +4,11 @@ import _ "github.com/lib/pq"
 import(
 	"net/http"
 	"fmt"
-	"github.com/a-h/templ"
+	"os"
 	"rxcheck/components"
+
+	"github.com/a-h/templ"
+	"github.com/joho/godotenv"
 )
 
 type config struct{
@@ -13,6 +16,13 @@ type config struct{
 }
 
 func main(){
+	godotenv.Load()
+	dbURL := os.Getenv("DB_URL")
+	if dbURL == "" {
+		fmt.Println("DB_URL not found")
+		return
+	}
+
 	const port = "8080"
 	mux := http.NewServeMux()
 	
