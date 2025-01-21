@@ -5,6 +5,7 @@ import(
 	"net/http"
 	"fmt"
 	"github.com/a-h/templ"
+	"rxcheck/components"
 )
 
 type config struct{
@@ -15,7 +16,7 @@ func main(){
 	const port = "8080"
 	mux := http.NewServeMux()
 	
-	indexComponent := index("test")
+	indexComponent := components.Index("test")
 	mux.Handle("/", templ.Handler(indexComponent))
 
 	server := &http.Server{
