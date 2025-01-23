@@ -5,11 +5,9 @@ import(
 	"net/http"
 	"fmt"
 	"os"
-	"rxcheck/templates"
 	"rxcheck/internal/database"
 	"database/sql"
 
-	"github.com/a-h/templ"
 	"github.com/joho/godotenv"
 )
 
@@ -39,9 +37,7 @@ func main(){
 
 	mux := http.NewServeMux()
 	
-	index := templates.Index("test")
-	
-	mux.Handle("/", templ.Handler(index))
+	mux.HandleFunc("/", handleApp)
 
 	mux.HandleFunc("POST /api/users", cfg.handleAddUser)
 
