@@ -17,9 +17,16 @@ type config struct{
 
 func main(){
 	godotenv.Load()
+
 	dbURL := os.Getenv("DB_URL")
 	if dbURL == "" {
 		fmt.Println("DB_URL not found")
+		return
+	}
+
+	port := os.Getenv("PORT")
+	if port == "" {
+		fmt.Println("PORT not found")
 		return
 	}
 
@@ -29,13 +36,14 @@ func main(){
 		return
 	}
 
-	const port = "8080"
-
 	cfg := config{
 		db: database.New(dbConnection),
 	}
 
+	fs := http.FileServer(http.Dir("./static"))
+	
 	mux := http.NewServeMux()
+    mux.Handle("/static/", http.StripPrefix("/static/", fs))
 	
 	mux.HandleFunc("/", handleApp)
 

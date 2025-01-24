@@ -7,3 +7,7 @@ up:
 .PHONY: down
 down:
 	cd sql/schema; goose postgres ${DB_URL} down
+
+.PHONY: tailwind
+tailwind:
+	tailwindcss -i ./static/input.css -o ./static/output.css

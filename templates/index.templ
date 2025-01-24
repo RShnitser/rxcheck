@@ -7,9 +7,12 @@ templ Index (text string){
 			<meta charset="UTF-8"/>
 			<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 			<title>RxCheck</title>
+			<link href="/static/output.css" rel="stylesheet">
+			//<script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+			<script src="/static/htmx.min.js"></script>
 		</head>
 		<body>
-            <div>{text}</div>
+            <div class="mx-auto text-9xl text-red-200">{text}</div>
 		</body>
     </html>
 }
