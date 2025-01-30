@@ -29,7 +29,7 @@ func Login() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div><form class=\"mx-auto w-lg flex justify-center flex-col\"><label for=\"email\">Email:</label> <input type=\"text\" id=\"email\" name=\"email\"><br><label for=\"password\">Last name:</label> <input type=\"password\" id=\"password\" name=\"password\"></form></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"max-w-80 mx-auto border-solid border-2 rounded m-5 p-2.5\" hx-target=\"this\" hx-swap=\"outerHTML\"><h2 class=\"text-center text-xl\">Login</h2><form class=\"flex flex-col gap-2 justify center\" hx-post=\"/login\"><label class=\"font-bold\" for=\"username\">Username</label> <input class=\"border-solid border-2\" id=\"username\" type=\"text\" name=\"name\" required> <label class=\"font-bold\" for=\"password\">Password</label> <input class=\"border-solid border-2\" id=\"password\" type=\"password\" name=\"password\" required> <button class=\"bg-gray-400 border-solid border-2 my-5\" type=\"submit\">Login</button></form><div class=\"text-blue-500 text-center cursor-pointer\"><a hx-get=\"/swap_create\">Don't Have an account? Create Account</a></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
