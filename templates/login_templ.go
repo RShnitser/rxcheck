@@ -8,7 +8,14 @@ package templates
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-func Login() templ.Component {
+type LoginInfo struct {
+	title       string
+	swapMessage string
+	submitURL   string
+	swapURL     string
+}
+
+func Login(title string) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -29,7 +36,20 @@ func Login() templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"max-w-80 mx-auto border-solid border-2 rounded m-5 p-2.5\" hx-target=\"this\" hx-swap=\"outerHTML\"><h2 class=\"text-center text-xl\">Login</h2><form class=\"flex flex-col gap-2 justify center\" hx-post=\"/login\"><label class=\"font-bold\" for=\"username\">Username</label> <input class=\"border-solid border-2\" id=\"username\" type=\"text\" name=\"name\" required> <label class=\"font-bold\" for=\"password\">Password</label> <input class=\"border-solid border-2\" id=\"password\" type=\"password\" name=\"password\" required> <button class=\"bg-gray-400 border-solid border-2 my-5\" type=\"submit\">Login</button></form><div class=\"text-blue-500 text-center cursor-pointer\"><a hx-get=\"/swap_create\">Don't Have an account? Create Account</a></div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"max-w-80 mx-auto border-solid border-2 rounded m-5 p-2.5\" hx-target=\"this\" hx-swap=\"outerHTML\"><h2 class=\"text-center text-xl\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var2 string
+		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(title)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/login.templ`, Line: 16, Col: 46}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</h2><form class=\"flex flex-col gap-2 justify center\" hx-post=\"/login\"><label class=\"font-bold\" for=\"username\">Username</label> <input class=\"border-solid border-2\" id=\"username\" type=\"text\" name=\"name\" required> <label class=\"font-bold\" for=\"password\">Password</label> <input class=\"border-solid border-2\" id=\"password\" type=\"password\" name=\"password\" required> <button class=\"bg-gray-400 border-solid border-2 my-5\" type=\"submit\">Login</button></form><div class=\"text-blue-500 text-center cursor-pointer\"><a hx-get=\"/swap_create\">Don't Have an account? Create Account</a></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -1,12 +1,19 @@
 package templates
 
-templ Login(){
+type LoginInfo struct{
+    title string
+    swapMessage string
+    submitURL string
+    swapURL string
+}
+
+templ Login(title string){
     <div
     class="max-w-80 mx-auto border-solid border-2 rounded m-5 p-2.5"
     hx-target="this"
     hx-swap="outerHTML"
     >
-        <h2 class="text-center text-xl">Login</h2>
+        <h2 class="text-center text-xl">{title}</h2>
         <form class="flex flex-col gap-2 justify center" hx-post="/login">
             <label class="font-bold" for="username">Username</label>
             <input
