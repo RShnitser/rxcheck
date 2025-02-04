@@ -14,13 +14,13 @@ templ Login(title string, swapURL string){
     hx-swap="outerHTML"
     >
         <h2 class="text-center text-xl">{title}</h2>
-        <form class="flex flex-col gap-2 justify center" hx-post="">
+        <form class="flex flex-col gap-2 justify center" hx-post="/create_user">
             <label class="font-bold" for="username">Username</label>
             <input
             class="border-solid border-2"
             id="username"
             type="text"
-            name="name"
+            name="username"
             required
             />
             <label class="font-bold" for="password">Password</label>

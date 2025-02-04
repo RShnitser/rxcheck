@@ -48,6 +48,7 @@ func main(){
 	mux.HandleFunc("/", handleApp)
 	mux.HandleFunc("/swap_login", handleSwapLogin)
 	mux.HandleFunc("/swap_create", handleSwapCreateAccount)
+	mux.HandleFunc("/create_user", cfg.handleAddUser)
 
 	mux.HandleFunc("POST /api/users", cfg.handleAddUser)
 

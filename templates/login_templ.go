@@ -49,7 +49,7 @@ func Login(title string, swapURL string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</h2><form class=\"flex flex-col gap-2 justify center\" hx-post=\"\"><label class=\"font-bold\" for=\"username\">Username</label> <input class=\"border-solid border-2\" id=\"username\" type=\"text\" name=\"name\" required> <label class=\"font-bold\" for=\"password\">Password</label> <input class=\"border-solid border-2\" id=\"password\" type=\"password\" name=\"password\" required> <button class=\"bg-gray-400 border-solid border-2 my-5\" type=\"submit\">Login</button></form><div class=\"text-blue-500 text-center cursor-pointer\"><a hx-get=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</h2><form class=\"flex flex-col gap-2 justify center\" hx-post=\"/create_user\"><label class=\"font-bold\" for=\"username\">Username</label> <input class=\"border-solid border-2\" id=\"username\" type=\"text\" name=\"username\" required> <label class=\"font-bold\" for=\"password\">Password</label> <input class=\"border-solid border-2\" id=\"password\" type=\"password\" name=\"password\" required> <button class=\"bg-gray-400 border-solid border-2 my-5\" type=\"submit\">Login</button></form><div class=\"text-blue-500 text-center cursor-pointer\"><a hx-get=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
