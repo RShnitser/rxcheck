@@ -3,12 +3,12 @@ package main
 import(
 	"net/http"
 	"rxcheck/internal/auth"
-	//"rxcheck/internal/database"
+	"rxcheck/internal/database"
 	"time"
 	//"github.com/google/uuid"
 )
 
-func(cfg *apiConfig) handleLogin(w http.ResponseWriter, r *http.Request) {
+func(cfg *config) handleLogin(w http.ResponseWriter, r *http.Request) {
 	userName := r.FormValue("username")
 	password := r.FormValue("password")
 
@@ -35,4 +35,11 @@ func(cfg *apiConfig) handleLogin(w http.ResponseWriter, r *http.Request) {
 		//respondWithError(w, http.StatusInternalServerError, "Could not create refresh token", err)
 		return
 	}
+
+	refreshToken, err := cfg.db.CreateRefreshToken(r.Context(), database.CreateRefreshTokenParams{refreshTokenString, user.ID, time.Now().UTC().Add(60 * 24 * time.Hour)})
+	if err != nil{
+		//respondWithError(w, http.StatusInternalServerError, "Could not create refresh token", err)
+		return
+	}
+
 }

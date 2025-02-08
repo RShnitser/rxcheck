@@ -13,6 +13,7 @@ import(
 
 type config struct{
 	db *database.Queries
+	jwtSecret string
 }
 
 func main(){
@@ -30,6 +31,12 @@ func main(){
 		return
 	}
 
+	jwtSecret := os.Getenv("JWT_SECRET")
+	if jwtSecret == "" {
+		fmt.Println("JWT_SECRET must be set")
+		return
+	}
+
 	dbConnection, err := sql.Open("postgres", dbURL)
 	if err != nil {
 		fmt.Printf("Could not connect to database: %s\n", err)
@@ -38,6 +45,7 @@ func main(){
 
 	cfg := config{
 		db: database.New(dbConnection),
+		jwtSecret: jwtSecret,
 	}
 
 	fs := http.FileServer(http.Dir("./static"))
