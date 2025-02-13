@@ -1,6 +1,7 @@
 let authToken = null;
 
-document.body.addEventListener("logIn", function (e) {
+document.body.addEventListener("login", function (e) {
+  console.log(e.details.value);
   authToken = e.details.value;
 });
 

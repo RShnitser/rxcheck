@@ -54,9 +54,10 @@ func main(){
     mux.Handle("/static/", http.StripPrefix("/static/", fs))
 	
 	mux.HandleFunc("/", handleApp)
-	mux.HandleFunc("/swap_login", handleSwapLogin)
-	mux.HandleFunc("/swap_create", handleSwapCreateAccount)
-	mux.HandleFunc("/create_user", cfg.handleAddUser)
+	//mux.HandleFunc("/swap_login", handleSwapLogin)
+	//mux.HandleFunc("/swap_create", handleSwapCreateAccount)
+	//mux.HandleFunc("/create_user", cfg.handleAddUser)
+	mux.HandleFunc("/login_user", cfg.handleLogin)
 
 	mux.HandleFunc("POST /api/users", cfg.handleAddUser)
 

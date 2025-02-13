@@ -14,7 +14,7 @@ templ Login(title string, swapURL string){
     hx-swap="outerHTML"
     >
         <h2 class="text-center text-xl">{title}</h2>
-        <form class="flex flex-col gap-2 justify center" hx-post="/create_user">
+        <form class="flex flex-col gap-2 justify center" hx-post="/login_user">
             <label class="font-bold" for="username">Username</label>
             <input
             class="border-solid border-2"
