@@ -43,6 +43,5 @@ func(cfg *config) handleLogin(w http.ResponseWriter, r *http.Request) {
 	// 	return
 	// }
 
-	r.Header.Add("HX-Trigger", fmt.Sprintf("{ \"login\": \"%s\"}", token))
-
+	w.Header().Add("HX-Trigger", fmt.Sprintf("{ \"login\": { \"token\": \"%s\"}}", token))
 }

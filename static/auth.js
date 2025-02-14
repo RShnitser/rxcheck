@@ -1,8 +1,7 @@
 let authToken = null;
 
 document.body.addEventListener("login", function (e) {
-  console.log(e.details.value);
-  authToken = e.details.value;
+  authToken = e.detail.token;
 });
 
 document.body.addEventListener("htmx:configRequest", function (e) {
@@ -10,5 +9,5 @@ document.body.addEventListener("htmx:configRequest", function (e) {
     return;
   }
 
-  e.details.headers["Authorization"] = `Bearer ${token}`;
+  e.detail.headers["Authorization"] = `Bearer ${token}`;
 });
