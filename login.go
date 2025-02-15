@@ -7,6 +7,8 @@ import(
 	"time"
 	"fmt"
 	"github.com/google/uuid"
+	"encoding/json"
+	"rxcheck/templates"
 )
 
 func(cfg *config) handleLogin(w http.ResponseWriter, r *http.Request) {
@@ -43,5 +45,24 @@ func(cfg *config) handleLogin(w http.ResponseWriter, r *http.Request) {
 	// 	return
 	// }
 
-	w.Header().Add("HX-Trigger", fmt.Sprintf("{ \"login\": { \"token\": \"%s\"}}", token))
+	type TokenData struct {
+		Login struct {
+			Token string `json:"token"`
+		} `json:"login"`
+	}
+
+	data := TokenData{Login: struct{Token string `json:"token"`}{Token: token}}
+
+	json, err := json.Marshal(data)
+	if err != nil {
+		fmt.Printf("Error marshalling JSON: %s", err)
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	//w.Header().Add("HX-Trigger", fmt.Sprintf("{ \"login\": { \"token\": \"%s\"}}", token))
+	fmt.Println(string(json))
+	w.Header().Add("HX-Trigger", string(json))
+
+	templates.Login("Login", "/swap_create").Render(r.Context(), w)
 }

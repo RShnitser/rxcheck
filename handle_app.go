@@ -14,5 +14,5 @@ func handleSwapLogin(w http.ResponseWriter, r *http.Request){
 }
 
 func handleSwapCreateAccount(w http.ResponseWriter, r *http.Request){
-	templates.Login("Create Account", "swao_login").Render(r.Context(), w)
+	templates.Login("Create Account", "swap_login").Render(r.Context(), w)
 }
