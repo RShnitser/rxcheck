@@ -7,6 +7,12 @@ type LoginInfo struct{
     swapURL string
 }
 
+type LoginError struct{
+    name string
+    password string
+    general string
+}
+
 templ Login(title string, swapURL string){
     <div
     class="max-w-80 mx-auto border-solid border-2 rounded m-5 p-2.5"
