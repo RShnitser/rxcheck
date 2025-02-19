@@ -16,12 +16,12 @@ type LoginInfo struct {
 }
 
 type LoginError struct {
-	name     string
-	password string
-	general  string
+	Name     string
+	Password string
+	General  string
 }
 
-func Login(title string, swapURL string) templ.Component {
+func Login(title string, swapURL string, errors LoginError) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {

@@ -10,9 +10,9 @@ func handleApp(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleSwapLogin(w http.ResponseWriter, r *http.Request){
-	templates.Login("Login", "/swap_create").Render(r.Context(), w)
+	templates.Login("Login", "/swap_create", templates.LoginError{}).Render(r.Context(), w)
 }
 
 func handleSwapCreateAccount(w http.ResponseWriter, r *http.Request){
-	templates.Login("Create Account", "swap_login").Render(r.Context(), w)
+	templates.Login("Create Account", "swap_login", templates.LoginError{}).Render(r.Context(), w)
 }

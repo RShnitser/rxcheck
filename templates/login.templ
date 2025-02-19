@@ -8,12 +8,12 @@ type LoginInfo struct{
 }
 
 type LoginError struct{
-    name string
-    password string
-    general string
+    Name string
+    Password string
+    General string
 }
 
-templ Login(title string, swapURL string){
+templ Login(title string, swapURL string, errors LoginError){
     <div
     class="max-w-80 mx-auto border-solid border-2 rounded m-5 p-2.5"
     hx-target="this"
