@@ -2,7 +2,7 @@ package main
 
 import(
 	"net/http"
-	//"rxcheck/internal/auth"
+	"rxcheck/internal/auth"
 	//"rxcheck/internal/database"
 	//"time"
 	//"fmt"
@@ -37,17 +37,21 @@ func(cfg *config) handleLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	_, err := cfg.db.GetUserByUserName(r.Context(), userName)
+	user, err := cfg.db.GetUserByUserName(r.Context(), userName)
 	if err != nil {
+		errs.General = "Incorrect email or password"
+		templates.Login(templates.LOGIN_PARAMS, errs).Render(r.Context(), w)
 		//respondWithError(w, http.StatusUnauthorized, "Incorrect email or password", err)
 		return
 	}
 
-	// err = auth.CheckPasswordHash(password, user.HashedPassword)
-	// if err != nil{
-	// 	//respondWithError(w, http.StatusUnauthorized, "Incorrect email or password", err)
-	// 	return
-	// }
+	err = auth.CheckPasswordHash(password, user.HashedPassword)
+	if err != nil{
+		errs.General = "Incorrect email or password"
+		templates.Login(templates.LOGIN_PARAMS, errs).Render(r.Context(), w)
+		//respondWithError(w, http.StatusUnauthorized, "Incorrect email or password", err)
+		return
+	}
 	//token, err := auth.MakeJWT(uuid.New(), cfg.jwtSecret, time.Hour)
 	//token, err := auth.MakeJWT(user.ID, cfg.jwtSecret, time.Hour)
 	//if err != nil{
