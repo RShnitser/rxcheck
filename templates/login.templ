@@ -13,6 +13,20 @@ type LoginError struct{
     General string
 }
 
+var LOGIN_PARAMS = LoginParams{
+    Title: "Login", 
+	SwapMessage: "Don't Have an account? Create Account",
+	SubmitURL: "/login_user",
+	SwapURL: "/swap_create",
+}
+
+var CREATE_USER_PARAMS = LoginParams{
+    Title: "Create User",
+	SwapMessage: "Already have an account? Sign In",
+	SubmitURL: "/create_user",
+	SwapURL: "/swap_login",
+}
+
 templ Login(params LoginParams, errors LoginError){
     <div
     class="max-w-80 mx-auto border-solid border-2 rounded m-5 p-2.5"
