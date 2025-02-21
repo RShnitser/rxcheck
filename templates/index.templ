@@ -13,7 +13,13 @@ templ Index (text string){
 		</head>
 		<body>
             // <div class="mx-auto text-9xl text-red-200">{text}</div>
-			@Login("Login", "/swap_create", LoginError{})
+			@Login(
+				LoginParams{
+					Title: "Login", 
+					SwapMessage: "Don't Have an account? Create Account",
+					SubmitURL: "/login_user",
+					SwapURL: "/swap_create",}, 
+				LoginError{})
 			<script src="/static/auth.js"></script>
 		</body>
     </html>

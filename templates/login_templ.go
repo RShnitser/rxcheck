@@ -8,7 +8,7 @@ package templates
 import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
-type LoginInfo struct {
+type LoginParams struct {
 	Title       string
 	SwapMessage string
 	SubmitURL   string
@@ -21,7 +21,7 @@ type LoginError struct {
 	General  string
 }
 
-func Login(title string, swapURL string, errors LoginError) templ.Component {
+func Login(params LoginParams, errors LoginError) templ.Component {
 	return templruntime.GeneratedTemplate(func(templ_7745c5c3_Input templruntime.GeneratedComponentInput) (templ_7745c5c3_Err error) {
 		templ_7745c5c3_W, ctx := templ_7745c5c3_Input.Writer, templ_7745c5c3_Input.Context
 		if templ_7745c5c3_CtxErr := ctx.Err(); templ_7745c5c3_CtxErr != nil {
@@ -47,28 +47,54 @@ func Login(title string, swapURL string, errors LoginError) templ.Component {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var2 string
-		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(title)
+		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(params.Title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/login.templ`, Line: 22, Col: 46}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/login.templ`, Line: 22, Col: 53}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</h2><form class=\"flex flex-col gap-2 justify center\" hx-post=\"/login_user\"><label class=\"font-bold\" for=\"username\">Username</label> <input class=\"border-solid border-2\" id=\"username\" type=\"text\" name=\"username\" required> <label class=\"font-bold\" for=\"password\">Password</label> <input class=\"border-solid border-2\" id=\"password\" type=\"password\" name=\"password\" required> <button class=\"bg-gray-400 border-solid border-2 my-5\" type=\"submit\">Login</button></form><div class=\"text-blue-500 text-center cursor-pointer\"><a hx-get=\"")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</h2><form class=\"flex flex-col gap-2 justify center\" hx-post=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var3 string
-		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(swapURL)
+		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(params.SubmitURL)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/login.templ`, Line: 45, Col: 30}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/login.templ`, Line: 23, Col: 82}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "\">Don't Have an account? Create Account</a></div></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "\"><label class=\"font-bold\" for=\"username\">Username</label> <input class=\"border-solid border-2\" id=\"username\" type=\"text\" name=\"username\" required> <label class=\"font-bold\" for=\"password\">Password</label> <input class=\"border-solid border-2\" id=\"password\" type=\"password\" name=\"password\" required> <button class=\"bg-gray-400 border-solid border-2 my-5\" type=\"submit\">Login</button></form><div class=\"text-blue-500 text-center cursor-pointer\"><a hx-get=\"")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var4 string
+		templ_7745c5c3_Var4, templ_7745c5c3_Err = templ.JoinStringErrs(params.SwapURL)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/login.templ`, Line: 45, Col: 37}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var4))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "\">")
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		var templ_7745c5c3_Var5 string
+		templ_7745c5c3_Var5, templ_7745c5c3_Err = templ.JoinStringErrs(params.SwapMessage)
+		if templ_7745c5c3_Err != nil {
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/login.templ`, Line: 45, Col: 58}
+		}
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var5))
+		if templ_7745c5c3_Err != nil {
+			return templ_7745c5c3_Err
+		}
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</a></div></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

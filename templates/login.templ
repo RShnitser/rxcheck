@@ -1,6 +1,6 @@
 package templates
 
-type LoginInfo struct{
+type LoginParams struct{
     Title string
     SwapMessage string
     SubmitURL string
@@ -13,14 +13,14 @@ type LoginError struct{
     General string
 }
 
-templ Login(title string, swapURL string, errors LoginError){
+templ Login(params LoginParams, errors LoginError){
     <div
     class="max-w-80 mx-auto border-solid border-2 rounded m-5 p-2.5"
     hx-target="this"
     hx-swap="outerHTML"
     >
-        <h2 class="text-center text-xl">{title}</h2>
-        <form class="flex flex-col gap-2 justify center" hx-post="/login_user">
+        <h2 class="text-center text-xl">{params.Title}</h2>
+        <form class="flex flex-col gap-2 justify center" hx-post={params.SubmitURL}>
             <label class="font-bold" for="username">Username</label>
             <input
             class="border-solid border-2"
@@ -42,7 +42,7 @@ templ Login(title string, swapURL string, errors LoginError){
             </button>
         </form>
         <div class="text-blue-500 text-center cursor-pointer">
-            <a hx-get={swapURL}>Don't Have an account? Create Account</a>
+            <a hx-get={params.SwapURL}>{params.SwapMessage}</a>
         </div>
     </div>
 }
