@@ -9,10 +9,10 @@ import "github.com/a-h/templ"
 import templruntime "github.com/a-h/templ/runtime"
 
 type LoginInfo struct {
-	title       string
-	swapMessage string
-	submitURL   string
-	swapURL     string
+	Title       string
+	SwapMessage string
+	SubmitURL   string
+	SwapURL     string
 }
 
 type LoginError struct {

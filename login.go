@@ -15,16 +15,28 @@ func(cfg *config) handleLogin(w http.ResponseWriter, r *http.Request) {
 	userName := r.FormValue("username")
 	password := r.FormValue("password")
 
+	loginInfo := templates.LoginInfo{
+		Title: "Login",
+		SwapMessage: "Don't Have an account? Create Account",
+		SubmitURL: "",
+		SwapURL: "/swap_create",
+	}
+
 	errs := templates.LoginError{
 	}
 
 	if userName == ""{
 		errs.Name = "Enter a Username"
+		templates.Login("Login", "/swap_create", errs).Render(r.Context(), w)
+		return
 	}
 
 	if password == ""{
 		errs.Password = "Enter a password"
+		templates.Login("Login", "/swap_create", errs).Render(r.Context(), w)
+		return
 	}
+
 
 
 	_, err := cfg.db.GetUserByUserName(r.Context(), userName)
