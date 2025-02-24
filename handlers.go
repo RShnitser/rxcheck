@@ -19,12 +19,3 @@ func handleSwapCreateAccount(w http.ResponseWriter, r *http.Request){
 	templates.Login(templates.CREATE_USER_PARAMS, templates.LoginError{}).Render(r.Context(), w)
 }
 
-func handleValidateUserName(w http.ResponseWriter, r *http.Request){
-	userName := r.FormValue("username")
-	err := ""
-	if(userName == ""){
-		err = "Please enter a username"
-	}
-
-	templates.UserName(err).Render(r.Context(), w)
-}
