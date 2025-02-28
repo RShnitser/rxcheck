@@ -92,5 +92,5 @@ func(cfg *config) handleLogin(w http.ResponseWriter, r *http.Request) {
 
 	
 
-	templates.Login(templates.LOGIN_PARAMS, errs).Render(r.Context(), w)
+	templates.Game().Render(r.Context(), w)
 }
