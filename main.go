@@ -54,12 +54,10 @@ func main(){
     mux.Handle("/static/", http.StripPrefix("/static/", fs))
 	
 	mux.HandleFunc("/", handleApp)
-	//mux.HandleFunc("/swap_login", handleSwapLogin)
-	//mux.HandleFunc("/swap_create", handleSwapCreateAccount)
+	mux.HandleFunc("/swap_login", handleSwapLogin)
+	mux.HandleFunc("/swap_create", handleSwapCreateAccount)
 	mux.HandleFunc("/create_user", cfg.handleCreateUser)
 	mux.HandleFunc("/login_user", cfg.handleLogin)
-
-	mux.HandleFunc("POST /api/users", cfg.handleAddUser)
 
 	server := &http.Server{
 		Addr:    ":" + port,

@@ -2,30 +2,53 @@ package main
 
 import(
 	"net/http"
-	"fmt"
-
 	"rxcheck/internal/auth"
 	"rxcheck/internal/database"
+	//"time"
+	//"fmt"
+	//"github.com/google/uuid"
+	//"encoding/json"
+	"rxcheck/templates"
 )
 
-func(cfg *config)handleAddUser(w http.ResponseWriter, r *http.Request){
-	
-
-	fmt.Println("Adding user")
+func(cfg *config) handleCreateUser(w http.ResponseWriter, r *http.Request) {
 	userName := r.FormValue("username")
 	password := r.FormValue("password")
 
-	fmt.Printf("name: %s, pass: %s\n", userName, password)
+	errs := templates.LoginError{
+	}
 
-	hash, err := auth.HashPassword(password)
-	if err != nil {
-		//respondWithError(w, http.StatusInternalServerError, "Couldn't hash password", err)
+	if userName == ""{
+		errs.Name = "Enter a Username"
+		templates.Login(templates.CREATE_USER_PARAMS, errs).Render(r.Context(), w)
 		return
 	}
 
-	_, err = cfg.db.CreateUser(r.Context(), database.CreateUserParams{userName, hash})
-	if err != nil {
-		//respondWithError(w, http.StatusInternalServerError, "Couldn't create user", err)
+	if password == ""{
+		errs.Password = "Enter a password"
+		templates.Login(templates.CREATE_USER_PARAMS, errs).Render(r.Context(), w)
 		return
 	}
+
+	hashPass, err := auth.HashPassword(password)
+	if(err != nil){
+		errs.General = "Server Error"
+		templates.Login(templates.CREATE_USER_PARAMS, errs).Render(r.Context(), w)
+		return
+	}
+
+	userParams := database.CreateUserParams{
+		UserName: userName,
+		HashedPassword: hashPass,
+	}
+
+	_, err = cfg.db.CreateUser(r.Context(), userParams)
+	if err != nil {
+		errs.General = "User Exists"
+		templates.Login(templates.CREATE_USER_PARAMS, errs).Render(r.Context(), w)
+		//respondWithError(w, http.StatusUnauthorized, "Incorrect email or password", err)
+		return
+	}
+
+	templates.Game().Render(r.Context(), w)
 }
