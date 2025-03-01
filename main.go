@@ -56,7 +56,7 @@ func main(){
 	mux.HandleFunc("/", handleApp)
 	//mux.HandleFunc("/swap_login", handleSwapLogin)
 	//mux.HandleFunc("/swap_create", handleSwapCreateAccount)
-	//mux.HandleFunc("/create_user", cfg.handleAddUser)
+	mux.HandleFunc("/create_user", cfg.handleCreateUser)
 	mux.HandleFunc("/login_user", cfg.handleLogin)
 
 	mux.HandleFunc("POST /api/users", cfg.handleAddUser)

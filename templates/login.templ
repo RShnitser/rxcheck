@@ -1,0 +1,62 @@
+package templates
+
+type LoginParams struct{
+    Title string
+    SwapMessage string
+    SubmitURL string
+    SwapURL string
+}
+
+type LoginError struct{
+    Name string
+    Password string
+    General string
+}
+
+var LOGIN_PARAMS = LoginParams{
+    Title: "Login", 
+	SwapMessage: "Don't Have an account? Create Account",
+	SubmitURL: "/login_user",
+	SwapURL: "/swap_create",
+}
+
+var CREATE_USER_PARAMS = LoginParams{
+    Title: "Create User",
+	SwapMessage: "Already have an account? Sign In",
+	SubmitURL: "/create_user",
+	SwapURL: "/swap_login",
+}
+
+templ Login(params LoginParams, errors LoginError){
+    <div
+    class="max-w-80 mx-auto border-solid border-2 rounded m-5 p-2.5"
+    hx-target="this"
+    hx-swap="outerHTML"
+    >
+        <h2 class="text-center text-xl">{params.Title}</h2>
+        <form class="flex flex-col gap-2 justify center" hx-post={params.SubmitURL}>
+            <label class="font-bold" for="username">Username</label>
+            <input
+            class="border-solid border-2"
+            id="username"
+            type="text"
+            name="username"
+            required
+            />
+            <label class="font-bold" for="password">Password</label>
+            <input
+            class="border-solid border-2"
+            id="password"
+            type="password"
+            name="password"
+            required
+            />
+            <button class="bg-gray-400 border-solid border-2 my-5" type="submit">
+            Login
+            </button>
+        </form>
+        <div class="text-blue-500 text-center cursor-pointer">
+            <a hx-get={params.SwapURL}>{params.SwapMessage}</a>
+        </div>
+    </div>
+}
