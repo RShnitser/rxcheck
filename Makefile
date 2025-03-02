@@ -15,3 +15,7 @@ tailwind:
 .PHONY: run
 run:
 	go run ./cmd/server/
+
+.PHONY: seed
+seed:
+	go run ./cmd/seed/main.go
