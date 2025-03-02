@@ -5,7 +5,7 @@ import(
 	"rxcheck/internal/auth"
 	//"rxcheck/internal/database"
 	//"time"
-	"fmt"
+	//"fmt"
 	//"github.com/google/uuid"
 	//"encoding/json"
 	"rxcheck/templates"

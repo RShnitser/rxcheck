@@ -11,3 +11,7 @@ down:
 .PHONY: tailwind
 tailwind:
 	tailwindcss -i ./static/input.css -o ./static/output.css
+
+.PHONY: run
+run:
+	go run ./cmd/server/
