@@ -11,6 +11,11 @@ import (
 	"github.com/google/uuid"
 )
 
+type Classification struct {
+	ID   uuid.UUID
+	Name string
+}
+
 type RefreshToken struct {
 	Token     string
 	CreatedAt time.Time
