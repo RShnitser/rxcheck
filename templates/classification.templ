@@ -1,7 +1,13 @@
 package templates
 
-templ.Classification(name string){
+import(
+"rxcheck/internal/database"
+)
+
+templ Classification(classificatons []database.Classification){
     <div>
-        <div>{name}</div>
+     for _, classification := range classificatons {
+        <div>{ classification.Name }</div>
+    }
     </div>
 }
