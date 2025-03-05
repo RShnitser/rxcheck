@@ -62,4 +62,22 @@ func main(){
 			return
 		}
 	}
+
+	err = db.DeleteClassifications(context.Background())
+	if err != nil {
+		fmt.Printf("Could not delete classifications: %s\n", err)
+		return
+	}
+
+	classifications := []string{
+		"Analgesic",
+	}
+
+	for _, classification := range classifications{
+		_, err = db.CreateClassification(context.Background(), classification)
+		if err != nil {
+			fmt.Printf("Could not create classification: %s\n", err)
+			return
+		}
+	}
 }
