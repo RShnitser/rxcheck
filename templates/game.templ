@@ -1,5 +1,13 @@
 package templates
 
-templ Game(){
-    <div>Game</div>
+import(
+"rxcheck/internal/database"
+)
+
+templ Game(classificatons []database.Classification){
+    <div>
+     for _, classification := range classificatons {
+        <div>{ classification.Name }</div>
+    }
+    </div>
 }

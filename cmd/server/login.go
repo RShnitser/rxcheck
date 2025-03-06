@@ -89,8 +89,12 @@ func(cfg *config) handleLogin(w http.ResponseWriter, r *http.Request) {
 	//w.Header().Add("HX-Trigger", fmt.Sprintf("{ \"login\": { \"token\": \"%s\"}}", token))
 	//fmt.Println(string(json))
 	//w.Header().Add("HX-Trigger", string(json))
+	classifications, err := cfg.db.ListClassifications(r.Context())
+	if err != nil{
+		errs.General = "Server Error"
+		templates.Login(templates.CREATE_USER_PARAMS, errs).Render(r.Context(), w)
+		return
+	}
 
-	
-
-	templates.Game().Render(r.Context(), w)
+	templates.Game(classifications).Render(r.Context(), w)
 }

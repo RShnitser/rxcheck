@@ -9,6 +9,9 @@ RETURNING *;
 -- name: DeleteClassifications :exec
 DELETE FROM classifications;
 
--- name: GetClassificationByUserName :one
+-- name: ListClassifications :many
+SELECT * FROM classifications;
+
+-- name: GetClassificationByName :one
 SELECT * FROM classifications
 WHERE name = $1;

@@ -63,12 +63,15 @@ func main(){
 		}
 	}
 
+	fmt.Println("deleting classifications")
 	err = db.DeleteClassifications(context.Background())
 	if err != nil {
 		fmt.Printf("Could not delete classifications: %s\n", err)
 		return
 	}
 
+
+	fmt.Println("creating classifications")
 	classifications := []string{
 		"Analgesic",
 	}

@@ -31,7 +31,7 @@ func(cfg *config) handleCreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	hashPass, err := auth.HashPassword(password)
-	if(err != nil){
+	if err != nil{
 		errs.General = "Server Error"
 		templates.Login(templates.CREATE_USER_PARAMS, errs).Render(r.Context(), w)
 		return
@@ -50,5 +50,12 @@ func(cfg *config) handleCreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	templates.Game().Render(r.Context(), w)
+	classifications, err := cfg.db.ListClassifications(r.Context())
+	if err != nil{
+		errs.General = "Server Error"
+		templates.Login(templates.CREATE_USER_PARAMS, errs).Render(r.Context(), w)
+		return
+	}
+
+	templates.Game(classifications).Render(r.Context(), w)
 }

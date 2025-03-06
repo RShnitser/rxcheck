@@ -34,14 +34,41 @@ func (q *Queries) DeleteClassifications(ctx context.Context) error {
 	return err
 }
 
-const getClassificationByUserName = `-- name: GetClassificationByUserName :one
+const getClassificationByName = `-- name: GetClassificationByName :one
 SELECT id, name FROM classifications
 WHERE name = $1
 `
 
-func (q *Queries) GetClassificationByUserName(ctx context.Context, name string) (Classification, error) {
-	row := q.db.QueryRowContext(ctx, getClassificationByUserName, name)
+func (q *Queries) GetClassificationByName(ctx context.Context, name string) (Classification, error) {
+	row := q.db.QueryRowContext(ctx, getClassificationByName, name)
 	var i Classification
 	err := row.Scan(&i.ID, &i.Name)
 	return i, err
+}
+
+const listClassifications = `-- name: ListClassifications :many
+SELECT id, name FROM classifications
+`
+
+func (q *Queries) ListClassifications(ctx context.Context) ([]Classification, error) {
+	rows, err := q.db.QueryContext(ctx, listClassifications)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var items []Classification
+	for rows.Next() {
+		var i Classification
+		if err := rows.Scan(&i.ID, &i.Name); err != nil {
+			return nil, err
+		}
+		items = append(items, i)
+	}
+	if err := rows.Close(); err != nil {
+		return nil, err
+	}
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+	return items, nil
 }
