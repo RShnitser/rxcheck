@@ -17,6 +17,16 @@ type userData struct{
 	pass string
 }
 
+type drugData struct{
+	genericName string
+	brandName string
+	classification string
+}
+
+const(
+	ClassificationAnalgestic = "Analgesic"
+)
+
 func main(){
 	godotenv.Load()
 
@@ -63,6 +73,14 @@ func main(){
 		}
 	}
 
+	fmt.Println("deleting drugs")
+	err = db.DeleteDrugs(context.Background())
+	if err != nil {
+		fmt.Printf("Could not delete drugs: %s\n", err)
+		return
+	}
+
+
 	fmt.Println("deleting classifications")
 	err = db.DeleteClassifications(context.Background())
 	if err != nil {
@@ -73,7 +91,7 @@ func main(){
 
 	fmt.Println("creating classifications")
 	classifications := []string{
-		"Analgesic",
+		ClassificationAnalgestic,
 	}
 
 	for _, classification := range classifications{
@@ -83,4 +101,27 @@ func main(){
 			return
 		}
 	}
+
+
+	drugs := []drugData{
+		{"Acetaminophenest", "Tylenol", ClassificationAnalgestic},
+	}
+
+	fmt.Println("creating drugs")
+
+	for _, drug := range drugs{
+
+		classification, err := db.GetClassificationByName(context.Background(), drug.classification)
+		if err != nil {
+			fmt.Printf("Could not get classification: %s\n", err)
+			return
+		}
+
+		_, err = db.CreateDrug(context.Background(), database.CreateDrugParams{drug.genericName, drug.brandName, classification.ID})
+		if err != nil {
+			fmt.Printf("Could not create drug: %s\n", err)
+			return
+		}
+	}
+
 }
