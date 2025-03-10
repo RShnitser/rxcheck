@@ -16,6 +16,13 @@ type Classification struct {
 	Name string
 }
 
+type Drug struct {
+	ID               uuid.UUID
+	GenericName      string
+	BrandName        string
+	ClassificationID uuid.UUID
+}
+
 type RefreshToken struct {
 	Token     string
 	CreatedAt time.Time
