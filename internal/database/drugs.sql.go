@@ -50,24 +50,32 @@ func (q *Queries) DeleteDrugs(ctx context.Context) error {
 }
 
 const listDrugsByClassification = `-- name: ListDrugsByClassification :many
-SELECT id, generic_name, brand_name, classification_id FROM drugs
-WHERE classification_id = $1
+SELECT drugs.id, drugs.generic_name, drugs.brand_name, drugs.classification_id, classifications.name
+FROM drugs
+JOIN classifications ON drugs.classification_id = classifications.id
+ORDER BY classifications.name
 `
 
-func (q *Queries) ListDrugsByClassification(ctx context.Context, classificationID uuid.UUID) ([]Drug, error) {
-	rows, err := q.db.QueryContext(ctx, listDrugsByClassification, classificationID)
+type ListDrugsByClassificationRow struct {
+	Drug Drug
+	Name string
+}
+
+func (q *Queries) ListDrugsByClassification(ctx context.Context) ([]ListDrugsByClassificationRow, error) {
+	rows, err := q.db.QueryContext(ctx, listDrugsByClassification)
 	if err != nil {
 		return nil, err
 	}
 	defer rows.Close()
-	var items []Drug
+	var items []ListDrugsByClassificationRow
 	for rows.Next() {
-		var i Drug
+		var i ListDrugsByClassificationRow
 		if err := rows.Scan(
-			&i.ID,
-			&i.GenericName,
-			&i.BrandName,
-			&i.ClassificationID,
+			&i.Drug.ID,
+			&i.Drug.GenericName,
+			&i.Drug.BrandName,
+			&i.Drug.ClassificationID,
+			&i.Name,
 		); err != nil {
 			return nil, err
 		}

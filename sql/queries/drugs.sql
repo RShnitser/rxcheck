@@ -12,5 +12,7 @@ RETURNING *;
 DELETE FROM drugs;
 
 -- name: ListDrugsByClassification :many
-SELECT * FROM drugs
-WHERE classification_id = $1;
+SELECT sqlc.embed(drugs), classifications.name
+FROM drugs
+JOIN classifications ON drugs.classification_id = classifications.id
+ORDER BY classifications.name;

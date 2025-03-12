@@ -25,6 +25,7 @@ type drugData struct{
 
 const(
 	ClassificationAnalgestic = "Analgesic"
+	NSAID = "NSAID"
 )
 
 func main(){
@@ -105,6 +106,7 @@ func main(){
 
 	drugs := []drugData{
 		{"Acetaminophenest", "Tylenol", ClassificationAnalgestic},
+		{"Ibuprofen", "Tylenol", ClassificationAnalgestic},
 	}
 
 	fmt.Println("creating drugs")
