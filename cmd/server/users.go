@@ -46,16 +46,24 @@ func(cfg *config) handleCreateUser(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		errs.General = "User Exists"
 		templates.Login(templates.CREATE_USER_PARAMS, errs).Render(r.Context(), w)
-		//respondWithError(w, http.StatusUnauthorized, "Incorrect email or password", err)
 		return
 	}
 
-	classifications, err := cfg.db.ListClassifications(r.Context())
+	classificationMap := make(map[string][]database.Drug)
+	drugData, err := cfg.db.ListDrugsByClassification(r.Context())
 	if err != nil{
 		errs.General = "Server Error"
 		templates.Login(templates.CREATE_USER_PARAMS, errs).Render(r.Context(), w)
 		return
 	}
 
-	templates.Game(classifications).Render(r.Context(), w)
+	for _, data := range drugData{
+		_, ok := classificationMap[data.Name]
+		if !ok{
+			classificationMap[data.Name] = []database.Drug{}
+		}
+		classificationMap[data.Name] = append(classificationMap[data.Name], data.Drug)
+	}
+
+	templates.Game(classificationMap).Render(r.Context(), w)
 }

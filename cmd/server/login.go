@@ -3,7 +3,7 @@ package main
 import(
 	"net/http"
 	"rxcheck/internal/auth"
-	//"rxcheck/internal/database"
+	"rxcheck/internal/database"
 	//"time"
 	//"fmt"
 	//"github.com/google/uuid"
@@ -89,12 +89,29 @@ func(cfg *config) handleLogin(w http.ResponseWriter, r *http.Request) {
 	//w.Header().Add("HX-Trigger", fmt.Sprintf("{ \"login\": { \"token\": \"%s\"}}", token))
 	//fmt.Println(string(json))
 	//w.Header().Add("HX-Trigger", string(json))
-	classifications, err := cfg.db.ListClassifications(r.Context())
+
+	classificationMap := make(map[string][]database.Drug)
+	drugData, err := cfg.db.ListDrugsByClassification(r.Context())
 	if err != nil{
 		errs.General = "Server Error"
 		templates.Login(templates.CREATE_USER_PARAMS, errs).Render(r.Context(), w)
 		return
 	}
 
-	templates.Game(classifications).Render(r.Context(), w)
+	for _, data := range drugData{
+		_, ok := classificationMap[data.Name]
+		if !ok{
+			classificationMap[data.Name] = []database.Drug{}
+		}
+		classificationMap[data.Name] = append(classificationMap[data.Name], data.Drug)
+	}
+
+	// classifications, err := cfg.db.ListClassifications(r.Context())
+	// if err != nil{
+	// 	errs.General = "Server Error"
+	// 	templates.Login(templates.CREATE_USER_PARAMS, errs).Render(r.Context(), w)
+	// 	return
+	// }
+
+	templates.Game(classificationMap).Render(r.Context(), w)
 }

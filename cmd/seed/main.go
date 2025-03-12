@@ -25,7 +25,8 @@ type drugData struct{
 
 const(
 	ClassificationAnalgestic = "Analgesic"
-	NSAID = "NSAID"
+	ClassificationNSAID = "NSAID"
+	ClassificationStatin = "Statin"
 )
 
 func main(){
@@ -93,6 +94,8 @@ func main(){
 	fmt.Println("creating classifications")
 	classifications := []string{
 		ClassificationAnalgestic,
+		ClassificationNSAID,
+		ClassificationStatin,
 	}
 
 	for _, classification := range classifications{
@@ -105,8 +108,10 @@ func main(){
 
 
 	drugs := []drugData{
-		{"Acetaminophenest", "Tylenol", ClassificationAnalgestic},
-		{"Ibuprofen", "Tylenol", ClassificationAnalgestic},
+		{"Acetaminophen", "Tylenol", ClassificationAnalgestic},
+		{"Ibuprofen", "Advil", ClassificationNSAID},
+		{"Atorvastatin", "Lipitor", ClassificationStatin},
+		{"Rosuvastatin", "Crestor", ClassificationStatin},
 	}
 
 	fmt.Println("creating drugs")

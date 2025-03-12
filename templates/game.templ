@@ -4,10 +4,13 @@ import(
 "rxcheck/internal/database"
 )
 
-templ Game(classificatons []database.Classification){
+templ Game(classificatonMap map[string][]database.Drug){
     <div>
-     for _, classification := range classificatons {
-        <div>{ classification.Name }</div>
+     for k,v := range classificatonMap {
+        <div>{ k }</div>
+        for _, drug := range v{
+            <div>{drug.GenericName}</div>
+        }
     }
     </div>
 }
