@@ -11,6 +11,13 @@ import (
 	"github.com/google/uuid"
 )
 
+type Answer struct {
+	ID          uuid.UUID
+	Text        string
+	AnswerOrder int32
+	QuestionID  uuid.UUID
+}
+
 type Classification struct {
 	ID   uuid.UUID
 	Name string
@@ -21,6 +28,13 @@ type Drug struct {
 	GenericName      string
 	BrandName        string
 	ClassificationID uuid.UUID
+}
+
+type Question struct {
+	ID               uuid.UUID
+	Text             string
+	ClassificationID uuid.UUID
+	DrugID           uuid.UUID
 }
 
 type RefreshToken struct {
