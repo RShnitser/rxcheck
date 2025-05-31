@@ -16,3 +16,7 @@ SELECT sqlc.embed(drugs), classifications.name
 FROM drugs
 JOIN classifications ON drugs.classification_id = classifications.id
 ORDER BY classifications.name;
+
+-- name: GetDrugByGenericName :one
+SELECT * FROM drugs
+WHERE generic_name = $1;

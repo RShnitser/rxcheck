@@ -131,4 +131,23 @@ func main(){
 		}
 	}
 
+	fmt.Println("deleting questions")
+	err = db.DeleteQuestions(context.Background())
+	if err != nil {
+		fmt.Printf("Could not delete questions: %s\n", err)
+		return
+	}
+
+	fmt.Println("creating questions")
+	Acetaminophen, err := db.GetDrugByGenericName(context.Background(), "Acetaminophen")
+	if err != nil {
+		fmt.Printf("Could not find Acetaminophen: %s\n", err)
+		return
+	}
+
+	_, err = db.CreateQuestion(context.Background(), database.CreateQuestionParams{"What is the primary therapeutic use of acetaminophen?", Acetaminophen.ClassificationID, Acetaminophen.ID})
+	if err != nil{
+		fmt.Printf("Could not create questions: %s\n", err)
+		return
+	}
 }

@@ -49,6 +49,23 @@ func (q *Queries) DeleteDrugs(ctx context.Context) error {
 	return err
 }
 
+const getDrugByGenericName = `-- name: GetDrugByGenericName :one
+SELECT id, generic_name, brand_name, classification_id FROM drugs
+WHERE generic_name = $1
+`
+
+func (q *Queries) GetDrugByGenericName(ctx context.Context, genericName string) (Drug, error) {
+	row := q.db.QueryRowContext(ctx, getDrugByGenericName, genericName)
+	var i Drug
+	err := row.Scan(
+		&i.ID,
+		&i.GenericName,
+		&i.BrandName,
+		&i.ClassificationID,
+	)
+	return i, err
+}
+
 const listDrugsByClassification = `-- name: ListDrugsByClassification :many
 SELECT drugs.id, drugs.generic_name, drugs.brand_name, drugs.classification_id, classifications.name
 FROM drugs
