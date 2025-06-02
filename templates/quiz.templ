@@ -1,0 +1,13 @@
+package templates
+
+import(
+    "rxcheck/internal/database"
+)
+
+templ Quiz(questions []database.Question){
+    <div>
+    for _, question := range questions{
+        <div>{question.Text}</div>
+    }
+    </div>
+}

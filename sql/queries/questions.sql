@@ -17,6 +17,8 @@ RETURNING *;
 -- name: DeleteQuestions :exec
 DELETE FROM questions;
 
--- name: ListQuestionByClassification :many
+-- name: ListRandomQuestionsByClassification :many
 SELECT * FROM questions
-WHERE classification_id = $1;
+WHERE classification_id = $1
+ORDER BY RANDOM()
+LIMIT 5;

@@ -18,4 +18,3 @@ func handleSwapCreateAccount(w http.ResponseWriter, r *http.Request){
 	
 	templates.Login(templates.CREATE_USER_PARAMS, templates.LoginError{}).Render(r.Context(), w)
 }
-

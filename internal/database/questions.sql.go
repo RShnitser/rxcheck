@@ -77,13 +77,15 @@ func (q *Queries) DeleteQuestions(ctx context.Context) error {
 	return err
 }
 
-const listQuestionByClassification = `-- name: ListQuestionByClassification :many
+const listRandomQuestionsByClassification = `-- name: ListRandomQuestionsByClassification :many
 SELECT id, classification_id, drug_id, text, choice_1, choice_2, choice_3, choice_4, explanation, answer_index FROM questions
 WHERE classification_id = $1
+ORDER BY RANDOM()
+LIMIT 5
 `
 
-func (q *Queries) ListQuestionByClassification(ctx context.Context, classificationID uuid.UUID) ([]Question, error) {
-	rows, err := q.db.QueryContext(ctx, listQuestionByClassification, classificationID)
+func (q *Queries) ListRandomQuestionsByClassification(ctx context.Context, classificationID uuid.UUID) ([]Question, error) {
+	rows, err := q.db.QueryContext(ctx, listRandomQuestionsByClassification, classificationID)
 	if err != nil {
 		return nil, err
 	}
