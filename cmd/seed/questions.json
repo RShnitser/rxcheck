@@ -1,0 +1,243 @@
+[
+    {
+      "generic_name": "acetaminophen",
+      "question": "What is the primary therapeutic use of acetaminophen?",
+      "choices": [
+        "Antihypertensive",
+        "Antipyretic",
+        "Antibiotic",
+        "Antidepressant"
+      ],
+      "correct_answer": 1,
+      "explanation": "Acetaminophen is commonly used to reduce fever (antipyretic) and relieve mild to moderate pain."
+    },
+    {
+      "generic_name": "acetaminophen",
+      "question": "Which of the following is a common brand name for acetaminophen?",
+      "choices": [
+        "Advil",
+        "Tylenol",
+        "Aleve",
+        "Motrin"
+      ],
+      "correct_answer": 1,
+      "explanation": "Tylenol is a well-known brand name for acetaminophen. Advil and Motrin are brands of ibuprofen, and Aleve is naproxen."
+    },
+    {
+      "generic_name": "acetaminophen",
+      "question": "Which organ is most at risk for damage from acetaminophen overdose?",
+      "choices": [
+        "Kidney",
+        "Liver",
+        "Heart",
+        "Pancreas"
+      ],
+      "correct_answer": 1,
+      "explanation": "Acetaminophen is metabolized by the liver, and excessive doses can cause serious and potentially fatal liver damage."
+    },
+    {
+      "generic_name": "acetaminophen",
+      "question": "What is the maximum recommended daily dose of acetaminophen for adults?",
+      "choices": [
+        "1000 mg",
+        "2000 mg",
+        "3000 mg",
+        "4000 mg"
+      ],
+      "correct_answer": 3,
+      "explanation": "The maximum recommended daily dose for adults is 4000 mg to avoid liver toxicity. Exceeding this can lead to liver damage."
+    },
+    {
+      "generic_name": "acetaminophen",
+      "question": "Acetaminophen is classified as which of the following?",
+      "choices": [
+        "Non-opioid analgesic",
+        "NSAID",
+        "Corticosteroid",
+        "Opioid agonist"
+      ],
+      "correct_answer": 0,
+      "explanation": "Acetaminophen is a non-opioid analgesic and antipyretic, but it is not an NSAID and does not have anti-inflammatory effects."
+    },
+    {
+      "generic_name": "acetaminophen",
+      "question": "Which of the following symptoms may indicate acetaminophen toxicity?",
+      "choices": [
+        "Ringing in the ears",
+        "Yellowing of the skin or eyes",
+        "Blurred vision",
+        "Muscle cramps"
+      ],
+      "correct_answer": 1,
+      "explanation": "Yellowing of the skin or eyes (jaundice) is a symptom of liver damage, which can occur with acetaminophen overdose."
+    },
+    {
+      "generic_name": "acetaminophen",
+      "question": "Acetaminophen is often combined with which of the following to enhance pain relief?",
+      "choices": [
+        "Amoxicillin",
+        "Hydrocodone",
+        "Ibuprofen",
+        "Pseudoephedrine"
+      ],
+      "correct_answer": 1,
+      "explanation": "Acetaminophen is frequently combined with opioid analgesics like hydrocodone (e.g., in Norco or Vicodin) to increase pain relief."
+    },
+    {
+      "generic_name": "acetaminophen",
+      "question": "What is the pregnancy category of acetaminophen according to the FDA?",
+      "choices": [
+        "Category A",
+        "Category B",
+        "Category C",
+        "Category D"
+      ],
+      "correct_answer": 1,
+      "explanation": "Acetaminophen is classified as Category B, meaning that animal studies have not demonstrated a risk to the fetus, and there are no adequate studies in pregnant women, but it is generally considered safe."
+    },
+    {
+      "generic_name": "acetaminophen",
+      "question": "Which of the following patients should use acetaminophen with caution?",
+      "choices": [
+        "Patients with a history of migraines",
+        "Patients with liver disease",
+        "Patients with asthma",
+        "Patients with diabetes"
+      ],
+      "correct_answer": 1,
+      "explanation": "Because acetaminophen is metabolized by the liver, patients with liver disease are at increased risk for toxicity and should use it with caution."
+    },
+    {
+      "generic_name": "acetaminophen",
+      "question": "Which of the following best describes the mechanism of action of acetaminophen?",
+      "choices": [
+        "Inhibits cyclooxygenase in the peripheral nervous system",
+        "Blocks opioid receptors in the brain",
+        "Inhibits prostaglandin synthesis in the CNS",
+        "Activates serotonin receptors in the GI tract"
+      ],
+      "correct_answer": 2,
+      "explanation": "Acetaminophen reduces pain and fever by inhibiting prostaglandin synthesis primarily in the central nervous system (CNS), not in the peripheral tissues like NSAIDs do."
+    },
+    {
+        "generic_name": "ibuprofen",
+        "question": "What is the primary therapeutic class of ibuprofen?",
+        "choices": [
+          "Opioid analgesic",
+          "NSAID",
+          "Corticosteroid",
+          "Antibiotic"
+        ],
+        "correct_answer": 1,
+        "explanation": "Ibuprofen is a nonsteroidal anti-inflammatory drug (NSAID) used to relieve pain, inflammation, and fever."
+      },
+      {
+        "generic_name": "ibuprofen",
+        "question": "Which of the following is a common brand name for ibuprofen?",
+        "choices": [
+          "Tylenol",
+          "Aleve",
+          "Advil",
+          "Percocet"
+        ],
+        "correct_answer": 2,
+        "explanation": "Advil is a popular brand name for ibuprofen. Tylenol is acetaminophen, Aleve is naproxen, and Percocet contains oxycodone and acetaminophen."
+      },
+      {
+        "generic_name": "ibuprofen",
+        "question": "Which of the following conditions may be treated with ibuprofen?",
+        "choices": [
+          "Hypertension",
+          "Bacterial infection",
+          "Inflammation",
+          "Depression"
+        ],
+        "correct_answer": 2,
+        "explanation": "Ibuprofen is effective in treating inflammation and associated pain, such as from arthritis or injury."
+      },
+      {
+        "generic_name": "ibuprofen",
+        "question": "What is the maximum recommended OTC daily dose of ibuprofen for adults?",
+        "choices": [
+          "800 mg",
+          "1200 mg",
+          "2400 mg",
+          "4000 mg"
+        ],
+        "correct_answer": 1,
+        "explanation": "The maximum over-the-counter (OTC) dose of ibuprofen for adults is 1200 mg per day, while higher doses may be prescribed under medical supervision."
+      },
+      {
+        "generic_name": "ibuprofen",
+        "question": "Which of the following is a potential side effect of long-term ibuprofen use?",
+        "choices": [
+          "Liver toxicity",
+          "Kidney damage",
+          "Weight gain",
+          "Hyperglycemia"
+        ],
+        "correct_answer": 1,
+        "explanation": "Prolonged use of NSAIDs like ibuprofen can cause kidney damage and gastrointestinal issues."
+      },
+      {
+        "generic_name": "ibuprofen",
+        "question": "Which patient should use ibuprofen with caution?",
+        "choices": [
+          "A patient with seasonal allergies",
+          "A patient with peptic ulcer disease",
+          "A patient with hypothyroidism",
+          "A patient with acne"
+        ],
+        "correct_answer": 1,
+        "explanation": "Ibuprofen can irritate the stomach lining and increase the risk of gastrointestinal bleeding, especially in patients with ulcers."
+      },
+      {
+        "generic_name": "ibuprofen",
+        "question": "How does ibuprofen exert its anti-inflammatory effect?",
+        "choices": [
+          "Inhibits serotonin reuptake",
+          "Blocks opioid receptors",
+          "Inhibits cyclooxygenase (COX) enzymes",
+          "Stimulates histamine release"
+        ],
+        "correct_answer": 2,
+        "explanation": "Ibuprofen works by inhibiting COX enzymes, which are involved in the production of prostaglandins that cause pain and inflammation."
+      },
+      {
+        "generic_name": "ibuprofen",
+        "question": "Which of the following drug classes should be used with caution when taken with ibuprofen?",
+        "choices": [
+          "Antacids",
+          "ACE inhibitors",
+          "Antihistamines",
+          "Statins"
+        ],
+        "correct_answer": 1,
+        "explanation": "NSAIDs like ibuprofen can reduce the effectiveness of ACE inhibitors and increase the risk of kidney damage."
+      },
+      {
+        "generic_name": "ibuprofen",
+        "question": "What is the typical onset of action for ibuprofen when taken orally?",
+        "choices": [
+          "5 minutes",
+          "15 minutes",
+          "30 minutes",
+          "2 hours"
+        ],
+        "correct_answer": 2,
+        "explanation": "Ibuprofen usually starts to work within 30 minutes when taken by mouth."
+      },
+      {
+        "generic_name": "ibuprofen",
+        "question": "Which FDA pregnancy category was ibuprofen classified under before the 2015 labeling rule change?",
+        "choices": [
+          "Category A",
+          "Category B",
+          "Category C/D",
+          "Category X"
+        ],
+        "correct_answer": 2,
+        "explanation": "Ibuprofen was classified as Category C in the first two trimesters and Category D in the third due to risks of fetal harm like premature ductus arteriosus closure."
+      }    
+  ]
+  

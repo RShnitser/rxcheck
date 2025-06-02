@@ -5,6 +5,7 @@ import(
 	"fmt"
 	"os"
 	"context"
+	"encoding/json"
 	"rxcheck/internal/database"
 	"rxcheck/internal/auth"
 	"database/sql"
@@ -21,6 +22,14 @@ type drugData struct{
 	genericName string
 	brandName string
 	classification string
+}
+
+type questionData struct {
+	GenericName   string   `json:"generic_name"`
+	Question      string   `json:"question"`
+	Choices       []string `json:"choices"`
+	CorrectAnswer int32      `json:"correct_answer"`
+	Explanation   string   `json:"explanation"`
 }
 
 const(
@@ -108,10 +117,10 @@ func main(){
 
 
 	drugs := []drugData{
-		{"Acetaminophen", "Tylenol", ClassificationAnalgestic},
-		{"Ibuprofen", "Advil", ClassificationNSAID},
-		{"Atorvastatin", "Lipitor", ClassificationStatin},
-		{"Rosuvastatin", "Crestor", ClassificationStatin},
+		{"acetaminophen", "tylenol", ClassificationAnalgestic},
+		{"ibuprofen", "advil", ClassificationNSAID},
+		{"atorvastatin", "lipitor", ClassificationStatin},
+		{"rosuvastatin", "crestor", ClassificationStatin},
 	}
 
 	fmt.Println("creating drugs")
@@ -136,18 +145,53 @@ func main(){
 	if err != nil {
 		fmt.Printf("Could not delete questions: %s\n", err)
 		return
+	} 
+
+	questionsFile, err := os.Open("cmd/seed/questions.json")
+	if err != nil{
+		fmt.Printf("Could not open questions.json: %s\n", err)
+		return
+	}
+	defer questionsFile.Close()
+
+	var questions []questionData
+	decoder := json.NewDecoder(questionsFile)
+	err = decoder.Decode(&questions)
+	if err != nil{
+		fmt.Printf("Could not decode questions.json: %s\n", err)
+		return
 	}
 
 	fmt.Println("creating questions")
-	Acetaminophen, err := db.GetDrugByGenericName(context.Background(), "Acetaminophen")
-	if err != nil {
-		fmt.Printf("Could not find Acetaminophen: %s\n", err)
-		return
-	}
+	for _, qData := range questions{
 
-	_, err = db.CreateQuestion(context.Background(), database.CreateQuestionParams{"What is the primary therapeutic use of acetaminophen?", Acetaminophen.ClassificationID, Acetaminophen.ID})
-	if err != nil{
-		fmt.Printf("Could not create questions: %s\n", err)
-		return
+		if len(qData.Choices) != 4{
+			fmt.Printf("Question must have 4 answer choices: %s\n", qData.Question)
+			continue
+		}
+
+		drug, err := db.GetDrugByGenericName(context.Background(), qData.GenericName)
+		if err != nil{
+			fmt.Printf("Could not find drug: %s\n", err)
+			continue
+		}
+
+		params := database.CreateQuestionParams{
+			drug.ClassificationID,
+			drug.ID,
+			qData.Question,
+			qData.Choices[0],
+			qData.Choices[1],
+			qData.Choices[2],
+			qData.Choices[3],
+			qData.Explanation,
+			qData.CorrectAnswer,
+		}
+
+		_, err = db.CreateQuestion(context.Background(), params)
+		if err != nil{
+			fmt.Printf("Could not create questions: %s\n", err)
+			continue
+		}
 	}
 }
