@@ -4,10 +4,10 @@ import(
 	"net/http"
 	"rxcheck/internal/auth"
 	"rxcheck/internal/database"
-	//"time"
+	"time"
 	//"fmt"
 	//"github.com/google/uuid"
-	//"encoding/json"
+	"encoding/json"
 	"rxcheck/templates"
 )
 
@@ -53,11 +53,11 @@ func(cfg *config) handleLogin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	//token, err := auth.MakeJWT(uuid.New(), cfg.jwtSecret, time.Hour)
-	//token, err := auth.MakeJWT(user.ID, cfg.jwtSecret, time.Hour)
-	//if err != nil{
+	token, err := auth.MakeJWT(user.ID, cfg.jwtSecret, 24 * time.Hour)
+	if err != nil{
 		//respondWithError(w, http.StatusInternalServerError, "Could not create token", err)
-		//return
-	//}
+		return
+	}
 
 	// refreshTokenString, err := auth.MakeRefreshToken()
 	// if err != nil{
@@ -71,24 +71,24 @@ func(cfg *config) handleLogin(w http.ResponseWriter, r *http.Request) {
 	// 	return
 	// }
 
-	// type TokenData struct {
-	// 	Login struct {
-	// 		Token string `json:"token"`
-	// 	} `json:"login"`
-	// }
+	type TokenData struct {
+		Login struct {
+			Token string `json:"token"`
+		} `json:"login"`
+	}
 
-	// data := TokenData{Login: struct{Token string `json:"token"`}{Token: token}}
+	data := TokenData{Login: struct{Token string `json:"token"`}{Token: token}}
 
-	// json, err := json.Marshal(data)
-	// if err != nil {
-	// 	fmt.Printf("Error marshalling JSON: %s", err)
-	// 	w.WriteHeader(http.StatusInternalServerError)
-	// 	return
-	// }
+	json, err := json.Marshal(data)
+	if err != nil {
+		//fmt.Printf("Error marshalling JSON: %s", err)
+		//w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
 
 	//w.Header().Add("HX-Trigger", fmt.Sprintf("{ \"login\": { \"token\": \"%s\"}}", token))
 	//fmt.Println(string(json))
-	//w.Header().Add("HX-Trigger", string(json))
+	w.Header().Add("HX-Trigger", string(json))
 
 	classificationMap := make(map[string][]database.Drug)
 	drugData, err := cfg.db.ListDrugsByClassification(r.Context())
