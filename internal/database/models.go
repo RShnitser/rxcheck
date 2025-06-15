@@ -36,6 +36,17 @@ type Question struct {
 	AnswerIndex      int32
 }
 
+type Quiz struct {
+	ID                uuid.UUID
+	UserID            uuid.UUID
+	Question1         uuid.UUID
+	Question2         uuid.UUID
+	Question3         uuid.UUID
+	Question4         uuid.UUID
+	Question5         uuid.UUID
+	NextQuestionIndex sql.NullInt32
+}
+
 type RefreshToken struct {
 	Token     string
 	CreatedAt time.Time

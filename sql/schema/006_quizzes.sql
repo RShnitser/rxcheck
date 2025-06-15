@@ -1,7 +1,7 @@
 -- +goose Up
 CREATE TABLE quizzes(
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id UUID NOT NULL,
+    user_id UUID UNIQUE NOT NULL,
     question_1 UUID NOT NULL,
     question_2 UUID NOT NULL,
     question_3 UUID NOT NULL,
