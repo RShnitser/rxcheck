@@ -12,5 +12,8 @@ VALUES (
 )
 RETURNING *;
 
+-- name: UpdateQuizNextQuestionIndex :exec
+UPDATE quizzes SET next_question_index = $1;
+
 -- name: DeleteQuiz :exec
 DELETE FROM quizzes WHERE user_id = $1;

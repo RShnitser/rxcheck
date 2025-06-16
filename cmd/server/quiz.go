@@ -3,7 +3,7 @@ package main
 import(
 	"net/http"
 	"rxcheck/internal/auth"
-	//"rxcheck/internal/database"
+	"rxcheck/internal/database"
 	"rxcheck/templates"
 	//"fmt"
 )
@@ -15,11 +15,16 @@ func (cfg *config)handleCreateQuiz(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	// userID, err := auth.ValidateJWT(token, cfg.jwtSecret)
-	// if err != nil {
-	// 	//respondWithError(w, http.StatusUnauthorized, "Couldn't validate JWT", err)
-	// 	return
-	// }
+	userID, err := auth.ValidateJWT(token, cfg.jwtSecret)
+	if err != nil {
+		//respondWithError(w, http.StatusUnauthorized, "Couldn't validate JWT", err)
+		return
+	}
+
+	err = database.DeleteQuiz(r.Context(), userID)
+	if err != nil{
+		return
+	}
 
 	classification, err := cfg.db.GetClassificationByName(r.Context(), r.PathValue("drugClassification"))
 	if err != nil{

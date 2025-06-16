@@ -7,6 +7,7 @@ package database
 
 import (
 	"context"
+	"database/sql"
 
 	"github.com/google/uuid"
 )
@@ -62,5 +63,14 @@ DELETE FROM quizzes WHERE user_id = $1
 
 func (q *Queries) DeleteQuiz(ctx context.Context, userID uuid.UUID) error {
 	_, err := q.db.ExecContext(ctx, deleteQuiz, userID)
+	return err
+}
+
+const updateQuizNextQuestionIndex = `-- name: UpdateQuizNextQuestionIndex :exec
+UPDATE quizzes SET next_question_index = $1
+`
+
+func (q *Queries) UpdateQuizNextQuestionIndex(ctx context.Context, nextQuestionIndex sql.NullInt32) error {
+	_, err := q.db.ExecContext(ctx, updateQuizNextQuestionIndex, nextQuestionIndex)
 	return err
 }
