@@ -3,7 +3,7 @@ package main
 import(
 	"net/http"
 	"rxcheck/internal/auth"
-	//"rxcheck/internal/database"
+	"rxcheck/internal/database"
 	"rxcheck/templates"
 	//"fmt"
 )
@@ -35,18 +35,18 @@ func (cfg *config)handleCreateQuiz(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	// quizParams := database.CreateQuizParams{
-	// 	userID,
-	// 	questions[0].ID,
-	// 	questions[1].ID,
-	// 	questions[2].ID,
-	// 	questions[3].ID,
-	// 	questions[4].ID,
-	// }
-	// quiz, err := cfg.db.CreateQuiz(r.Context(), quizParams)
-	// if err != nil{
-	// 	return
-	// }
+	quizParams := database.CreateQuizParams{
+		userID,
+		questions[0].ID,
+		questions[1].ID,
+		questions[2].ID,
+		questions[3].ID,
+		questions[4].ID,
+	}
+	quiz, err := cfg.db.CreateQuiz(r.Context(), quizParams)
+	if err != nil{
+		return
+	}
 
-	templates.Question(questions[0]).Render(r.Context(), w)
+	templates.Question(questions[0], quiz.NextQuestionIndex).Render(r.Context(), w)
 }

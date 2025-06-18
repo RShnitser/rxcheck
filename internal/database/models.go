@@ -44,7 +44,7 @@ type Quiz struct {
 	Question3         uuid.UUID
 	Question4         uuid.UUID
 	Question5         uuid.UUID
-	NextQuestionIndex sql.NullInt32
+	NextQuestionIndex int32
 }
 
 type RefreshToken struct {

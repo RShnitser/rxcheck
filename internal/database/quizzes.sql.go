@@ -7,7 +7,6 @@ package database
 
 import (
 	"context"
-	"database/sql"
 
 	"github.com/google/uuid"
 )
@@ -72,7 +71,7 @@ const updateQuizNextQuestionIndex = `-- name: UpdateQuizNextQuestionIndex :exec
 UPDATE quizzes SET next_question_index = $1
 `
 
-func (q *Queries) UpdateQuizNextQuestionIndex(ctx context.Context, nextQuestionIndex sql.NullInt32) error {
+func (q *Queries) UpdateQuizNextQuestionIndex(ctx context.Context, nextQuestionIndex int32) error {
 	_, err := q.db.ExecContext(ctx, updateQuizNextQuestionIndex, nextQuestionIndex)
 	return err
 }

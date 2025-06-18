@@ -7,7 +7,7 @@ CREATE TABLE quizzes(
     question_3 UUID NOT NULL,
     question_4 UUID NOT NULL,
     question_5 UUID NOT NULL,
-    next_question_index INT,
+    next_question_index INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (question_1) REFERENCES questions(id),
     FOREIGN KEY (question_2) REFERENCES questions(id),

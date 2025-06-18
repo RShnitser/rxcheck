@@ -5,7 +5,7 @@ import(
     "rxcheck/internal/database"
 )
 
-templ Question(question database.Question){
+templ Question(question database.Question, nextQuestion int32){
     <div>
     <form>
         <div>{question.Text}</div>
