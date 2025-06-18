@@ -21,7 +21,7 @@ VALUES (
     $3,
     $4,
     $5,
-    &6,
+    $6,
     0
 )
 RETURNING id, user_id, question_1, question_2, question_3, question_4, question_5, next_question_index
@@ -33,6 +33,7 @@ type CreateQuizParams struct {
 	Question2 uuid.UUID
 	Question3 uuid.UUID
 	Question4 uuid.UUID
+	Question5 uuid.UUID
 }
 
 func (q *Queries) CreateQuiz(ctx context.Context, arg CreateQuizParams) (Quiz, error) {
@@ -42,6 +43,7 @@ func (q *Queries) CreateQuiz(ctx context.Context, arg CreateQuizParams) (Quiz, e
 		arg.Question2,
 		arg.Question3,
 		arg.Question4,
+		arg.Question5,
 	)
 	var i Quiz
 	err := row.Scan(
