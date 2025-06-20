@@ -59,7 +59,7 @@ func main(){
 	mux.HandleFunc("/create_user", cfg.handleCreateUser)
 	mux.HandleFunc("/login_user", cfg.handleLogin)
 	mux.HandleFunc("/quiz/{drugClassification}", cfg.handleCreateQuiz)
-
+	mux.HandleFunc("/question/{nextQuestionIndex}", cfg.handleGetQuestion)
 
 	server := &http.Server{
 		Addr:    ":" + port,
