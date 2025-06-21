@@ -12,6 +12,10 @@ VALUES (
 )
 RETURNING *;
 
+-- name: GetQuizByUserID :one
+SELECT * FROM quizzes
+WHERE user_id = $1;
+
 -- name: UpdateQuizNextQuestionIndex :exec
 UPDATE quizzes SET next_question_index = $1;
 

@@ -77,6 +77,29 @@ func (q *Queries) DeleteQuestions(ctx context.Context) error {
 	return err
 }
 
+const getQuestionByID = `-- name: GetQuestionByID :one
+SELECT id, classification_id, drug_id, text, choice_1, choice_2, choice_3, choice_4, explanation, answer_index FROM questions
+WHERE id = $1
+`
+
+func (q *Queries) GetQuestionByID(ctx context.Context, id uuid.UUID) (Question, error) {
+	row := q.db.QueryRowContext(ctx, getQuestionByID, id)
+	var i Question
+	err := row.Scan(
+		&i.ID,
+		&i.ClassificationID,
+		&i.DrugID,
+		&i.Text,
+		&i.Choice1,
+		&i.Choice2,
+		&i.Choice3,
+		&i.Choice4,
+		&i.Explanation,
+		&i.AnswerIndex,
+	)
+	return i, err
+}
+
 const listRandomQuestionsByClassification = `-- name: ListRandomQuestionsByClassification :many
 SELECT id, classification_id, drug_id, text, choice_1, choice_2, choice_3, choice_4, explanation, answer_index FROM questions
 WHERE classification_id = $1

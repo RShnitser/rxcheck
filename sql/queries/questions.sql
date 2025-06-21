@@ -17,6 +17,10 @@ RETURNING *;
 -- name: DeleteQuestions :exec
 DELETE FROM questions;
 
+-- name: GetQuestionByID :one
+SELECT * FROM questions
+WHERE id = $1;
+
 -- name: ListRandomQuestionsByClassification :many
 SELECT * FROM questions
 WHERE classification_id = $1

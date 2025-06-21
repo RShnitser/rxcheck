@@ -67,6 +67,27 @@ func (q *Queries) DeleteQuiz(ctx context.Context, userID uuid.UUID) error {
 	return err
 }
 
+const getQuizByUserID = `-- name: GetQuizByUserID :one
+SELECT id, user_id, question_1, question_2, question_3, question_4, question_5, next_question_index FROM quizzes
+WHERE user_id = $1
+`
+
+func (q *Queries) GetQuizByUserID(ctx context.Context, userID uuid.UUID) (Quiz, error) {
+	row := q.db.QueryRowContext(ctx, getQuizByUserID, userID)
+	var i Quiz
+	err := row.Scan(
+		&i.ID,
+		&i.UserID,
+		&i.Question1,
+		&i.Question2,
+		&i.Question3,
+		&i.Question4,
+		&i.Question5,
+		&i.NextQuestionIndex,
+	)
+	return i, err
+}
+
 const updateQuizNextQuestionIndex = `-- name: UpdateQuizNextQuestionIndex :exec
 UPDATE quizzes SET next_question_index = $1
 `
