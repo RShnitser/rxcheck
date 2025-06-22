@@ -2,12 +2,16 @@ package templates
 
 import(
     "math/rand"
+    "fmt"
     "rxcheck/internal/database"
 )
 
 templ Question(question database.Question, nextQuestion int32){
-    <div>
-    <form>
+    <div  
+        hx-target="this"
+        hx-swap="outerHTML"
+    >
+    <form hx-post={fmt.Sprintf("/question/%d", nextQuestion + 1)}>
         <div>{question.Text}</div>
             {{answers := [4]string{}
             answers[0] = question.Choice1
@@ -18,9 +22,13 @@ templ Question(question database.Question, nextQuestion int32){
                 j := rand.Intn(i + 1)
                 answers[i], answers[j] = answers[j], answers[i]
             }}}
-            for _, answer := range answers{
-                <input type="radio"> value={answer} required>
+            for i, answer := range answers{
+                <input id={fmt.Sprintf("answer_%s", i)} type="radio" name="answer" value={fmt.Sprintf("%d", i)} required>
+                <label for={fmt.Sprintf("answer_%s", i)}>{answer}</label>
             }
+         <button class="bg-gray-400 border-solid border-2 my-5" type="submit">
+            Submit Answer
+        </button>
     </form>
     </div>
 }

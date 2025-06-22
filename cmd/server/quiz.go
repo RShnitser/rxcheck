@@ -12,17 +12,20 @@ func (cfg *config)handleCreateQuiz(w http.ResponseWriter, r *http.Request){
 
 	token, err := auth.GetBearerToken(r.Header)
 	if err != nil{
+		//fmt.Println("No Bearer token")
 		return
 	}
 
 	userID, err := auth.ValidateJWT(token, cfg.jwtSecret)
 	if err != nil {
 		//respondWithError(w, http.StatusUnauthorized, "Couldn't validate JWT", err)
+		//fmt.Println(err)
 		return
 	}
 
 	err = cfg.db.DeleteQuiz(r.Context(), userID)
 	if err != nil{
+		//fmt.Println("could not delete")
 		return
 	}
 

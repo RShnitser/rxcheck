@@ -10,6 +10,7 @@ import(
 )
 
 func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
+	
 	token, err := auth.GetBearerToken(r.Header)
 	if err != nil{
 		return
