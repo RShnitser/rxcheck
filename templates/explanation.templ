@@ -1,5 +1,15 @@
 package templates
 
-templ Explanation(explanation string){
-    <div>{explanation}</div>
+import(
+    "fmt"
+)
+
+templ Explanation(explanation string, nextQuestion int32){
+    <div
+        hx-target="this"
+        hx-swap="outerHTML"
+    >
+        <div>{explanation}</div>
+        <a hx-get={fmt.Sprintf("/question/%d", nextQuestion)}>Next Question</a>
+    </div>
 }
