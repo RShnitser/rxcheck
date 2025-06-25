@@ -11,8 +11,8 @@ templ Question(question database.Question, nextQuestion int32){
         hx-target="this"
         hx-swap="outerHTML"
     >
-    <form hx-post={fmt.Sprintf("/question/%d", nextQuestion + 1)}>
-        <div>{question.Text}</div>
+        <h2>{question.Text}</h2>
+        <form class="flex flex-col gap-2" hx-post={fmt.Sprintf("/question/%d", nextQuestion + 1)}>
             {{answers := [4]string{}
             answers[0] = question.Choice1
             answers[1] = question.Choice2
@@ -26,9 +26,9 @@ templ Question(question database.Question, nextQuestion int32){
                 <input id={fmt.Sprintf("answer_%s", i)} type="radio" name="answer" value={fmt.Sprintf("%d", i)} required>
                 <label for={fmt.Sprintf("answer_%s", i)}>{answer}</label>
             }
-         <button class="bg-gray-400 border-solid border-2 my-5" type="submit">
-            Submit Answer
-        </button>
-    </form>
+            <button class="bg-gray-400 border-solid border-2 my-5" type="submit">
+                Submit Answer
+            </button>
+        </form>
     </div>
 }
