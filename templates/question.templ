@@ -1,7 +1,7 @@
 package templates
 
 import(
-    "math/rand"
+    //"math/rand"
     "fmt"
     "rxcheck/internal/database"
 )
@@ -18,10 +18,12 @@ templ Question(question database.Question, nextQuestion int32){
             answers[1] = question.Choice2
             answers[2] = question.Choice3
             answers[3] = question.Choice4
-            for i := range answers {
-                j := rand.Intn(i + 1)
-                answers[i], answers[j] = answers[j], answers[i]
-            }}}
+            //fmt.Printf("next question index %d\n", nextQuestion)
+            // for i := range answers {
+            //     j := rand.Intn(i + 1)
+            //     answers[i], answers[j] = answers[j], answers[i]
+            // }
+            }}
             for i, answer := range answers{
                 <input id={fmt.Sprintf("answer_%s", i)} type="radio" name="answer" value={fmt.Sprintf("%d", i)} required>
                 <label for={fmt.Sprintf("answer_%s", i)}>{answer}</label>

@@ -46,10 +46,10 @@ func (cfg *config)handleCreateQuiz(w http.ResponseWriter, r *http.Request){
 		questions[3].ID,
 		questions[4].ID,
 	}
-	quiz, err := cfg.db.CreateQuiz(r.Context(), quizParams)
+	_, err = cfg.db.CreateQuiz(r.Context(), quizParams)
 	if err != nil{
 		return
 	}
 
-	templates.Question(questions[0], quiz.NextQuestionIndex).Render(r.Context(), w)
+	templates.Question(questions[0], 0).Render(r.Context(), w)
 }
