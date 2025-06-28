@@ -7,7 +7,7 @@ import(
 	"rxcheck/templates"
 	"strconv"
 	"github.com/google/uuid"
-	"fmt"
+	//"fmt"
 )
 
 func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
@@ -24,6 +24,10 @@ func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 
 	nextQuestionIndex, err := strconv.Atoi(r.PathValue("nextQuestionIndex"))
 	if err != nil{
+		return
+	}
+
+	if nextQuestionIndex > 4{
 		return
 	}
 	//fmt.Printf("next question index %d\n", nextQuestionIndex)
@@ -54,11 +58,15 @@ func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	answer := r.FormValue("answer")
-	fmt.Println(answer)
-
-	if nextQuestionIndex > 4{
+	answer, err := strconv.Atoi(r.FormValue("answer"))
+	if err != nil{
 		return
 	}
+	
+	if int32(answer) != question.AnswerIndex{
+		templates.Explanation(question.Explanation, int32(nextQuestionIndex)).Render(r.Context(), w)
+		return
+	}
+	
 	templates.Question(question, int32(nextQuestionIndex)).Render(r.Context(), w)
 }
