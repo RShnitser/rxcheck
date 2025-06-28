@@ -22,14 +22,11 @@ func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	nextQuestionIndex, err := strconv.Atoi(r.PathValue("nextQuestionIndex"))
+	questionIndex, err := strconv.Atoi(r.PathValue("nextQuestionIndex"))
 	if err != nil{
 		return
 	}
 
-	if nextQuestionIndex > 4{
-		return
-	}
 	//fmt.Printf("next question index %d\n", nextQuestionIndex)
 
 	quiz, err := cfg.db.GetQuizByUserID(r.Context(), userID)
@@ -38,15 +35,20 @@ func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 	}
 
 	var questionID uuid.UUID
-	switch nextQuestionIndex{
+	var nextQuestionID uuid.UUID
+	switch questionIndex{
 	case 0:
 		questionID = quiz.Question1
+		nextQuestionID = quiz.Question2
 	case 1:
 		questionID = quiz.Question2
+		nextQuestionID = quiz.Question3
 	case 2:
 		questionID = quiz.Question3
+		nextQuestionID = quiz.Question4
 	case 3:
 		questionID = quiz.Question4
+		nextQuestionID = quiz.Question5
 	case 4:
 		questionID = quiz.Question5
 	default:
@@ -63,10 +65,19 @@ func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 		return
 	}
 	
-	if int32(answer) != question.AnswerIndex{
-		templates.Explanation(question.Explanation, int32(nextQuestionIndex)).Render(r.Context(), w)
+	if int32(answer) != -1 && int32(answer) != question.AnswerIndex{
+		templates.Explanation(question.Explanation, int32(questionIndex)).Render(r.Context(), w)
+		return
+	}
+
+	if questionIndex > 4{
 		return
 	}
 	
-	templates.Question(question, int32(nextQuestionIndex)).Render(r.Context(), w)
+	nextQuestion, err := cfg.db.GetQuestionByID(r.Context(), nextQuestionID)
+	if err != nil{
+		return
+	}
+	
+	templates.Question(nextQuestion, int32(questionIndex + 1)).Render(r.Context(), w)
 }

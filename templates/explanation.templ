@@ -9,7 +9,10 @@ templ Explanation(explanation string, nextQuestion int32){
         hx-target="this"
         hx-swap="outerHTML"
     >
+        <form>
         <div>{explanation}</div>
-        <a hx-get={fmt.Sprintf("/question/%d", nextQuestion + 1)}>Next Question</a>
+        <input type="hidden" name="answer" value="-1">
+        <button hx-post={fmt.Sprintf("/question/%d", nextQuestion)} type="sumbit">Next Question</button>
+        </form>
     </div>
 }
