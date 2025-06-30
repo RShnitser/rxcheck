@@ -12,7 +12,7 @@ templ Explanation(explanation string, nextQuestion int32){
         <form>
         <div>{explanation}</div>
         <input type="hidden" name="answer" value="-1">
-        <button hx-post={fmt.Sprintf("/question/%d", nextQuestion)} type="sumbit">Next Question</button>
+        <button hx-post={fmt.Sprintf("/question/%d", nextQuestion)} type="sumbit">Continue</button>
         </form>
     </div>
 }

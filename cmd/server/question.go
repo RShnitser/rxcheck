@@ -22,7 +22,7 @@ func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	questionIndex, err := strconv.Atoi(r.PathValue("nextQuestionIndex"))
+	questionIndex, err := strconv.Atoi(r.PathValue("questionIndex"))
 	if err != nil{
 		return
 	}
@@ -70,12 +70,14 @@ func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	if questionIndex > 4{
+	if questionIndex == 4{
+		templates.Summary().Render(r.Context(), w)
 		return
 	}
 	
 	nextQuestion, err := cfg.db.GetQuestionByID(r.Context(), nextQuestionID)
 	if err != nil{
+		//fmt.Println("Invalid Next Question ID")
 		return
 	}
 	
