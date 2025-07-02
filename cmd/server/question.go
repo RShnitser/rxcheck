@@ -22,35 +22,33 @@ func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	questionIndex, err := strconv.Atoi(r.PathValue("questionIndex"))
+	session, err := cfg.db.GetSessionByUserID(r.Context(), userID)
 	if err != nil{
 		return
 	}
 
-	//fmt.Printf("next question index %d\n", nextQuestionIndex)
-
-	quiz, err := cfg.db.GetQuizByUserID(r.Context(), userID)
-	if err != nil{
-		return
-	}
+	// questionIndex, err := strconv.Atoi(r.PathValue("questionIndex"))
+	// if err != nil{
+	// 	return
+	// }
 
 	var questionID uuid.UUID
 	var nextQuestionID uuid.UUID
-	switch questionIndex{
+	switch session.QuestionIndex{
 	case 0:
-		questionID = quiz.Question1
-		nextQuestionID = quiz.Question2
+		questionID = session.Question1
+		nextQuestionID = session.Question2
 	case 1:
-		questionID = quiz.Question2
-		nextQuestionID = quiz.Question3
+		questionID = session.Question2
+		nextQuestionID = session.Question3
 	case 2:
-		questionID = quiz.Question3
-		nextQuestionID = quiz.Question4
+		questionID = session.Question3
+		nextQuestionID = session.Question4
 	case 3:
-		questionID = quiz.Question4
-		nextQuestionID = quiz.Question5
+		questionID = session.Question4
+		nextQuestionID = session.Question5
 	case 4:
-		questionID = quiz.Question5
+		questionID = session.Question5
 	default:
 		return
 	}
@@ -65,19 +63,28 @@ func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 		return
 	}
 	
-	if int32(answer) != -1 && int32(answer) != question.AnswerIndex{
-		templates.Explanation(question.Explanation, int32(questionIndex)).Render(r.Context(), w)
+	newScore := session.Score
+	//newQuestionIndex = session.QuestionIndex
+	if int32(answer) != -1{
+		if int32(answer) != question.AnswerIndex{
+			templates.Explanation(question.Explanation).Render(r.Context(), w)
+			return
+		}
+		
+		if int32(answer) == question.AnswerIndex{
+			newScore += 1
+			
+		}
+		//newQuestionIndex += 1
+
+	}
+
+	err = cfg.db.UpdateSession(r.Context(), database.UpdateSessionParams{session.ID, newScore, session.QuestionIndex + 1})
+	if err != nil{
 		return
 	}
 
-	newScore := quiz.Score
-
-	if(int32(answer) != -1 && int32(answer) == question.AnswerIndex){
-		newScore += 1
-		cfg.db.UpdateQuizScore(r.Context(), database.UpdateQuizScoreParams{quiz.ID, newScore})
-	}
-
-	if questionIndex == 4{
+	if session.QuestionIndex == 4{
 		templates.Summary(newScore).Render(r.Context(), w)
 		return
 	}
@@ -88,5 +95,5 @@ func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 		return
 	}
 	
-	templates.Question(nextQuestion, int32(questionIndex + 1)).Render(r.Context(), w)
+	templates.Question(question).Render(r.Context(), w)
 }

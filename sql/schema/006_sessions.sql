@@ -1,5 +1,5 @@
 -- +goose Up
-CREATE TABLE quizzes(
+CREATE TABLE sessions(
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     user_id UUID UNIQUE NOT NULL,
     question_1 UUID NOT NULL,
@@ -8,6 +8,7 @@ CREATE TABLE quizzes(
     question_4 UUID NOT NULL,
     question_5 UUID NOT NULL,
     score INT NOT NULL,
+    question_index INT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users(id),
     FOREIGN KEY (question_1) REFERENCES questions(id),
     FOREIGN KEY (question_2) REFERENCES questions(id),
@@ -17,4 +18,4 @@ CREATE TABLE quizzes(
 );
 
 -- +goose Down
-DROP TABLE quizzes;
+DROP TABLE sessions;

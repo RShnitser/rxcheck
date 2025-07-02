@@ -23,7 +23,7 @@ func (cfg *config)handleCreateQuiz(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	err = cfg.db.DeleteQuiz(r.Context(), userID)
+	err = cfg.db.DeleteSession(r.Context(), userID)
 	if err != nil{
 		//fmt.Println("could not delete")
 		return
@@ -38,7 +38,7 @@ func (cfg *config)handleCreateQuiz(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	quizParams := database.CreateQuizParams{
+	sessionParams := database.CreateSessionParams{
 		userID,
 		questions[0].ID,
 		questions[1].ID,
@@ -46,10 +46,10 @@ func (cfg *config)handleCreateQuiz(w http.ResponseWriter, r *http.Request){
 		questions[3].ID,
 		questions[4].ID,
 	}
-	_, err = cfg.db.CreateQuiz(r.Context(), quizParams)
+	_, err = cfg.db.CreateSession(r.Context(), sessionParams)
 	if err != nil{
 		return
 	}
 
-	templates.Question(questions[0], 0).Render(r.Context(), w)
+	templates.Question(questions[0]).Render(r.Context(), w)
 }

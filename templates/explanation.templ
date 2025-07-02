@@ -1,10 +1,6 @@
 package templates
 
-import(
-    "fmt"
-)
-
-templ Explanation(explanation string, nextQuestion int32){
+templ Explanation(explanation string){
     <div
         hx-target="this"
         hx-swap="outerHTML"
@@ -12,7 +8,7 @@ templ Explanation(explanation string, nextQuestion int32){
         <form>
         <div>{explanation}</div>
         <input type="hidden" name="answer" value="-1">
-        <button hx-post={fmt.Sprintf("/question/%d", nextQuestion)} type="sumbit">Continue</button>
+        <button hx-post="/question" type="submit">Continue</button>
         </form>
     </div>
 }

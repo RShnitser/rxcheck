@@ -36,17 +36,6 @@ type Question struct {
 	AnswerIndex      int32
 }
 
-type Quiz struct {
-	ID        uuid.UUID
-	UserID    uuid.UUID
-	Question1 uuid.UUID
-	Question2 uuid.UUID
-	Question3 uuid.UUID
-	Question4 uuid.UUID
-	Question5 uuid.UUID
-	Score     int32
-}
-
 type RefreshToken struct {
 	Token     string
 	CreatedAt time.Time
@@ -54,6 +43,18 @@ type RefreshToken struct {
 	UserID    uuid.UUID
 	ExpiresAt time.Time
 	RevokedAt sql.NullTime
+}
+
+type Session struct {
+	ID            uuid.UUID
+	UserID        uuid.UUID
+	Question1     uuid.UUID
+	Question2     uuid.UUID
+	Question3     uuid.UUID
+	Question4     uuid.UUID
+	Question5     uuid.UUID
+	Score         int32
+	QuestionIndex int32
 }
 
 type User struct {
