@@ -12,7 +12,7 @@ import (
 )
 
 const createQuiz = `-- name: CreateQuiz :one
-INSERT INTO quizzes (id, user_id, question_1, question_2, question_3, question_4, question_5, next_question_index)
+INSERT INTO quizzes (id, user_id, question_1, question_2, question_3, question_4, question_5, score)
 VALUES (
     gen_random_uuid(),
     $1,
@@ -23,7 +23,7 @@ VALUES (
     $6,
     0
 )
-RETURNING id, user_id, question_1, question_2, question_3, question_4, question_5, next_question_index
+RETURNING id, user_id, question_1, question_2, question_3, question_4, question_5, score
 `
 
 type CreateQuizParams struct {
@@ -53,7 +53,7 @@ func (q *Queries) CreateQuiz(ctx context.Context, arg CreateQuizParams) (Quiz, e
 		&i.Question3,
 		&i.Question4,
 		&i.Question5,
-		&i.NextQuestionIndex,
+		&i.Score,
 	)
 	return i, err
 }
@@ -68,7 +68,7 @@ func (q *Queries) DeleteQuiz(ctx context.Context, userID uuid.UUID) error {
 }
 
 const getQuizByUserID = `-- name: GetQuizByUserID :one
-SELECT id, user_id, question_1, question_2, question_3, question_4, question_5, next_question_index FROM quizzes
+SELECT id, user_id, question_1, question_2, question_3, question_4, question_5, score FROM quizzes
 WHERE user_id = $1
 `
 
@@ -83,16 +83,22 @@ func (q *Queries) GetQuizByUserID(ctx context.Context, userID uuid.UUID) (Quiz, 
 		&i.Question3,
 		&i.Question4,
 		&i.Question5,
-		&i.NextQuestionIndex,
+		&i.Score,
 	)
 	return i, err
 }
 
-const updateQuizNextQuestionIndex = `-- name: UpdateQuizNextQuestionIndex :exec
-UPDATE quizzes SET next_question_index = $1
+const updateQuizScore = `-- name: UpdateQuizScore :exec
+UPDATE quizzes SET score = $2
+WHERE id = $1
 `
 
-func (q *Queries) UpdateQuizNextQuestionIndex(ctx context.Context, nextQuestionIndex int32) error {
-	_, err := q.db.ExecContext(ctx, updateQuizNextQuestionIndex, nextQuestionIndex)
+type UpdateQuizScoreParams struct {
+	ID    uuid.UUID
+	Score int32
+}
+
+func (q *Queries) UpdateQuizScore(ctx context.Context, arg UpdateQuizScoreParams) error {
+	_, err := q.db.ExecContext(ctx, updateQuizScore, arg.ID, arg.Score)
 	return err
 }

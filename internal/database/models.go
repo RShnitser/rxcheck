@@ -37,14 +37,14 @@ type Question struct {
 }
 
 type Quiz struct {
-	ID                uuid.UUID
-	UserID            uuid.UUID
-	Question1         uuid.UUID
-	Question2         uuid.UUID
-	Question3         uuid.UUID
-	Question4         uuid.UUID
-	Question5         uuid.UUID
-	NextQuestionIndex int32
+	ID        uuid.UUID
+	UserID    uuid.UUID
+	Question1 uuid.UUID
+	Question2 uuid.UUID
+	Question3 uuid.UUID
+	Question4 uuid.UUID
+	Question5 uuid.UUID
+	Score     int32
 }
 
 type RefreshToken struct {

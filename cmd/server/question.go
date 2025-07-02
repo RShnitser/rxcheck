@@ -3,7 +3,7 @@ package main
 import(
 	"net/http"
 	"rxcheck/internal/auth"
-	// "rxcheck/internal/database"
+	"rxcheck/internal/database"
 	"rxcheck/templates"
 	"strconv"
 	"github.com/google/uuid"
@@ -70,8 +70,15 @@ func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
+	newScore := quiz.Score
+
+	if(int32(answer) != -1 && int32(answer) == question.AnswerIndex){
+		newScore += 1
+		cfg.db.UpdateQuizScore(r.Context(), database.UpdateQuizScoreParams{quiz.ID, newScore})
+	}
+
 	if questionIndex == 4{
-		templates.Summary().Render(r.Context(), w)
+		templates.Summary(newScore).Render(r.Context(), w)
 		return
 	}
 	

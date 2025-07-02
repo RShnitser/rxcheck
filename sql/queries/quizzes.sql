@@ -1,5 +1,5 @@
 -- name: CreateQuiz :one
-INSERT INTO quizzes (id, user_id, question_1, question_2, question_3, question_4, question_5, next_question_index)
+INSERT INTO quizzes (id, user_id, question_1, question_2, question_3, question_4, question_5, score)
 VALUES (
     gen_random_uuid(),
     $1,
@@ -16,8 +16,9 @@ RETURNING *;
 SELECT * FROM quizzes
 WHERE user_id = $1;
 
--- name: UpdateQuizNextQuestionIndex :exec
-UPDATE quizzes SET next_question_index = $1;
+-- name: UpdateQuizScore :exec
+UPDATE quizzes SET score = $2
+WHERE id = $1;
 
 -- name: DeleteQuiz :exec
 DELETE FROM quizzes WHERE user_id = $1;
