@@ -62,25 +62,25 @@ func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 	if err != nil{
 		return
 	}
+
+	if int32(answer) == -1{
+		templates.Question(question).Render(r.Context(), w)
+		return
+	}
 	
 	newScore := session.Score
-	//newQuestionIndex = session.QuestionIndex
-	if int32(answer) != -1{
-		if int32(answer) != question.AnswerIndex{
-			templates.Explanation(question.Explanation).Render(r.Context(), w)
-			return
-		}
+	if int32(answer) == question.AnswerIndex{
+		newScore += 1
 		
-		if int32(answer) == question.AnswerIndex{
-			newScore += 1
-			
-		}
-		//newQuestionIndex += 1
-
 	}
-
+		
 	err = cfg.db.UpdateSession(r.Context(), database.UpdateSessionParams{session.ID, newScore, session.QuestionIndex + 1})
 	if err != nil{
+		return
+	}
+	
+	if int32(answer) != question.AnswerIndex{
+		templates.Explanation(question.Explanation).Render(r.Context(), w)
 		return
 	}
 
@@ -95,5 +95,5 @@ func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 		return
 	}
 	
-	templates.Question(question).Render(r.Context(), w)
+	templates.Question(nextQuestion).Render(r.Context(), w)
 }
