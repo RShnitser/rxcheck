@@ -24,10 +24,14 @@ templ Question(question database.Question){
             //     answers[i], answers[j] = answers[j], answers[i]
             // }
             }}
+            <ul class="grid grid-cols-2">
             for i, answer := range answers{
-                <input id={fmt.Sprintf("answer_%s", i)} type="radio" name="answer" value={fmt.Sprintf("%d", i)} required>
-                <label for={fmt.Sprintf("answer_%s", i)}>{answer}</label>
+                <li>
+                    <input id={fmt.Sprintf("answer_%s", i)} type="radio" name="answer" value={fmt.Sprintf("%d", i)} class="hidden peer" required>
+                    <label for={fmt.Sprintf("answer_%s", i)} class="border border-gray-200 peer-checked:border-blue-600 hover:bg-gray-100">{answer}</label>
+                </li>
             }
+            </ul>
             <button class="bg-gray-400 border-solid border-2 my-5" type="submit">
                 Submit Answer
             </button>

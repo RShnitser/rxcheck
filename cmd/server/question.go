@@ -27,11 +27,6 @@ func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	// questionIndex, err := strconv.Atoi(r.PathValue("questionIndex"))
-	// if err != nil{
-	// 	return
-	// }
-
 	var questionID uuid.UUID
 	var nextQuestionID uuid.UUID
 	switch session.QuestionIndex{
