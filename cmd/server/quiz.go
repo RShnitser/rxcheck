@@ -37,6 +37,7 @@ func (cfg *config)handleCreateQuiz(w http.ResponseWriter, r *http.Request){
 	if err != nil{
 		return
 	}
+	//fmt.Printf("Question Length: %d", len(questions))
 
 	sessionParams := database.CreateSessionParams{
 		userID,

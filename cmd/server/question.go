@@ -14,16 +14,19 @@ func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 	
 	token, err := auth.GetBearerToken(r.Header)
 	if err != nil{
+		//fmt.Println("No token")
 		return
 	}
 
 	userID, err := auth.ValidateJWT(token, cfg.jwtSecret)
 	if err != nil {
+		//fmt.Println("Invalid token")
 		return
 	}
 
 	session, err := cfg.db.GetSessionByUserID(r.Context(), userID)
 	if err != nil{
+		//fmt.Println("Could not get session")
 		return
 	}
 
@@ -45,20 +48,29 @@ func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 	case 4:
 		questionID = session.Question5
 	default:
+		//fmt.Printf("invalid question index:%d\n", session.QuestionIndex)
 		return
 	}
 
 	question, err := cfg.db.GetQuestionByID(r.Context(), questionID)
 	if err != nil{
+		//fmt.Println("could not get question")
 		return
 	}
 
 	answer, err := strconv.Atoi(r.FormValue("answer"))
 	if err != nil{
+		//fmt.Println("could not convert answer")
 		return
 	}
 
 	if int32(answer) == -1{
+		//fmt.Println("Previous page was explanation.  Displaying question.")
+		if session.QuestionIndex == 4{
+			//fmt.Println("displaying summary")
+			templates.Summary(session.Score).Render(r.Context(), w)
+			return
+		}
 		templates.Question(question).Render(r.Context(), w)
 		return
 	}
@@ -66,20 +78,22 @@ func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 	newScore := session.Score
 	if int32(answer) == question.AnswerIndex{
 		newScore += 1
-		
 	}
 		
 	err = cfg.db.UpdateSession(r.Context(), database.UpdateSessionParams{session.ID, newScore, session.QuestionIndex + 1})
 	if err != nil{
+		//fmt.Println("could not update session")
 		return
 	}
 	
 	if int32(answer) != question.AnswerIndex{
+		//fmt.Println("displaying explanation")
 		templates.Explanation(question.Explanation).Render(r.Context(), w)
 		return
 	}
 
 	if session.QuestionIndex == 4{
+		//fmt.Println("displaying summary")
 		templates.Summary(newScore).Render(r.Context(), w)
 		return
 	}
