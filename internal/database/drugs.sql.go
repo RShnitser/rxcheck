@@ -9,6 +9,7 @@ import (
 	"context"
 
 	"github.com/google/uuid"
+	"github.com/lib/pq"
 )
 
 const createDrug = `-- name: CreateDrug :one
@@ -67,15 +68,18 @@ func (q *Queries) GetDrugByGenericName(ctx context.Context, genericName string) 
 }
 
 const listDrugsByClassification = `-- name: ListDrugsByClassification :many
-SELECT drugs.id, drugs.generic_name, drugs.brand_name, drugs.classification_id, classifications.name
+SELECT
+    classifications.name as classification,
+    ARRAY_AGG(drugs.generic_name ORDER BY drugs.generic_name)::text[] as drugs
 FROM drugs
 JOIN classifications ON drugs.classification_id = classifications.id
+GROUP BY classifications.name
 ORDER BY classifications.name
 `
 
 type ListDrugsByClassificationRow struct {
-	Drug Drug
-	Name string
+	Classification string
+	Drugs          []string
 }
 
 func (q *Queries) ListDrugsByClassification(ctx context.Context) ([]ListDrugsByClassificationRow, error) {
@@ -87,13 +91,7 @@ func (q *Queries) ListDrugsByClassification(ctx context.Context) ([]ListDrugsByC
 	var items []ListDrugsByClassificationRow
 	for rows.Next() {
 		var i ListDrugsByClassificationRow
-		if err := rows.Scan(
-			&i.Drug.ID,
-			&i.Drug.GenericName,
-			&i.Drug.BrandName,
-			&i.Drug.ClassificationID,
-			&i.Name,
-		); err != nil {
+		if err := rows.Scan(&i.Classification, pq.Array(&i.Drugs)); err != nil {
 			return nil, err
 		}
 		items = append(items, i)

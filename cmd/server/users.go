@@ -49,7 +49,7 @@ func(cfg *config) handleCreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	classificationMap := make(map[string][]database.Drug)
+	//classificationMap := make(map[string][]database.Drug)
 	drugData, err := cfg.db.ListDrugsByClassification(r.Context())
 	if err != nil{
 		errs.General = "Server Error"
@@ -57,13 +57,13 @@ func(cfg *config) handleCreateUser(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	for _, data := range drugData{
-		_, ok := classificationMap[data.Name]
-		if !ok{
-			classificationMap[data.Name] = []database.Drug{}
-		}
-		classificationMap[data.Name] = append(classificationMap[data.Name], data.Drug)
-	}
+	// for _, data := range drugData{
+	// 	_, ok := classificationMap[data.Name]
+	// 	if !ok{
+	// 		classificationMap[data.Name] = []database.Drug{}
+	// 	}
+	// 	classificationMap[data.Name] = append(classificationMap[data.Name], data.Drug)
+	// }
 
-	templates.Game(classificationMap).Render(r.Context(), w)
+	templates.Game(drugData).Render(r.Context(), w)
 }

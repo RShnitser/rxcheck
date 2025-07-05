@@ -5,17 +5,17 @@ import(
     "rxcheck/internal/database"
 )
 
-templ Game(classificationMap map[string][]database.Drug){
+templ Game(classifications []database.ListDrugsByClassificationRow){
     <div
     hx-target="this"
     hx-swap="outerHTML"
     >
-     for classification,drugList := range classificationMap {
-        //<div>{ classification }</div>
-        <a hx-get={fmt.Sprintf("quiz/%s", classification)}>{classification}</a>
-        for _, drug := range drugList{
-            <div>{drug.GenericName}</div>
-        }
+     for _, drugClass := range classifications {
+        //<div>{ drugClass.Classification }</div>
+         <a hx-get={fmt.Sprintf("quiz/%s", drugClass.Classification)}>{drugClass.Classification}</a>
+         for _, drug := range drugClass.Drugs{
+             <div>{drug}</div>
+         }
     }
     </div>
 }

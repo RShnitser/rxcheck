@@ -11,12 +11,15 @@ RETURNING *;
 -- name: DeleteDrugs :exec
 DELETE FROM drugs;
 
--- name: ListDrugsByClassification :many
-SELECT sqlc.embed(drugs), classifications.name
-FROM drugs
-JOIN classifications ON drugs.classification_id = classifications.id
-ORDER BY classifications.name;
-
 -- name: GetDrugByGenericName :one
 SELECT * FROM drugs
 WHERE generic_name = $1;
+
+-- name: ListDrugsByClassification :many
+SELECT
+    classifications.name as classification,
+    ARRAY_AGG(drugs.generic_name ORDER BY drugs.generic_name)::text[] as drugs
+FROM drugs
+JOIN classifications ON drugs.classification_id = classifications.id
+GROUP BY classifications.name
+ORDER BY classifications.name;
