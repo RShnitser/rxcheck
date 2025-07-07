@@ -18,6 +18,9 @@ case "$1" in
     down)
         cd sql/schema; goose postgres ${DB_URL} down
         ;;
+    watch)
+        templ generate --watch --cmd="go run ./cmd/server/" --proxy="http://localhost:8080"
+        ;;
      *)
         echo "Usage: $0 {run|seed|tailwind|up|down}"
         exit 1
