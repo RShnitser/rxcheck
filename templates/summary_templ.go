@@ -33,20 +33,20 @@ func Summary(score int32) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div hx-target=\"this\" hx-swap=\"outerHTML\"><div>Quiz Over</div><div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div hx-target=\"this\" hx-swap=\"outerHTML\" class=\"flex flex-col text-center max-w-80 mx-auto border-solid border-2 rounded m-5 p-2.5\"><p class=\"text-xl font-bold\">Quiz Over</p><div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(fmt.Sprintf("Score: %d/5", score))
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/summary.templ`, Line: 13, Col: 43}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/summary.templ`, Line: 14, Col: 47}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</div><a hx-get=\"/menu\">New Game</a></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</div><button class=\"w-auto m-1 p-1 bg-gray-200 hover:bg-gray-300 border-solid border-2\" hx-get=\"/menu\">Menu</button></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
