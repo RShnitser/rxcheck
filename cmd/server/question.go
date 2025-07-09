@@ -88,7 +88,7 @@ func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 	
 	if int32(answer) != question.AnswerIndex{
 		//fmt.Println("displaying explanation")
-		templates.Explanation(question.Explanation).Render(r.Context(), w)
+		templates.Explanation(question.Text, question.Explanation).Render(r.Context(), w)
 		return
 	}
 

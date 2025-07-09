@@ -1,14 +1,16 @@
 package templates
 
-templ Explanation(explanation string){
+templ Explanation(question, explanation string){
     <div
         hx-target="this"
         hx-swap="outerHTML"
+        class="max-w-lg mx-auto border-solid border-2 rounded m-5 p-2.5"
     >
-        <form>
-        <div>{explanation}</div>
-        <input type="hidden" name="answer" value="-1">
-        <button hx-post="/question" type="submit">Continue</button>
+        <p class="text-xl font-bold">{question}</p>
+        <p class="bg-gray-200 border-solid border-2 p-1">{explanation}</p>
+        <form class="flex">
+            <input type="hidden" name="answer" value="-1">
+            <button class="mx-auto my-1 p-1 bg-gray-400 hover:bg-gray-300 border-solid border-2" hx-post="/question" type="submit">Continue</button>
         </form>
     </div>
 }

@@ -33,7 +33,7 @@ templ Login(params LoginParams, errors LoginError){
     hx-target="this"
     hx-swap="outerHTML"
     >
-        <h2 class="text-center text-xl">{params.Title}</h2>
+        <p class="text-center text-xl">{params.Title}</p>
         <form class="flex flex-col gap-2" hx-post={params.SubmitURL}>
             <label class="font-bold" for="username">Username</label>
             <input
