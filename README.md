@@ -1,1 +1,3 @@
 # RXCHECK
+
+## contributing
