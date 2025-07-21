@@ -11,3 +11,15 @@ create .env file with these variables:
 PORT : port number
 DB_URL : postgres database url
 JWT_SECRET : randomly generated key
+
+## Running
+
+Seed:
+```
+./rxcheck.sh seed
+```
+
+Server:
+```
+./rxcheck.sh run
+```
