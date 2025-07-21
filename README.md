@@ -1,5 +1,8 @@
 # RXCHECK
 
+RxCheck is a quiz application focusing on multiple choice medication related questions
+intended to help prepare for the PTCB exam.
+
 ## Installation
 
 ```
@@ -14,12 +17,12 @@ JWT_SECRET : randomly generated key
 
 ## Running
 
-Seed:
+Run Database Seed:
 ```
 ./rxcheck.sh seed
 ```
 
-Server:
+Run Server:
 ```
 ./rxcheck.sh run
 ```
