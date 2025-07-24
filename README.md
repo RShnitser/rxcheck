@@ -5,6 +5,12 @@ intended to help prepare for the PTCB exam.
 
 ## Installation
 
+Requires Go
+
+[Installing Go](https://go.dev/doc/install)
+
+Requires goose, sqlc, and templ
+
 ```
 go install github.com/pressly/goose/v3/cmd/goose@latest
 go install github.com/sqlc-dev/sqlc/cmd/sqlc@latest
