@@ -23,6 +23,11 @@ JWT_SECRET : randomly generated key
 
 ## Running
 
+Run Database Migration:
+```
+./rxcheck.sh up
+```
+
 Run Database Seed:
 ```
 ./rxcheck.sh seed
