@@ -10,9 +10,9 @@ templ Question(question database.Question){
     <div  
         hx-target="this"
         hx-swap="outerHTML"
-        class="max-w-lg mx-auto border-solid border-2 rounded m-5 p-2.5"
+        class="bg-[#393E46] max-w-lg mx-auto border-solid border-2 rounded m-5 p-2.5"
     >
-        <p class="text-xl font-bold">{question.Text}</p>
+        <p class="text-[#EEEEEE] text-xl font-bold">{question.Text}</p>
         <form class="flex flex-col gap-2" hx-post="/question">
             {{answers := [4]string{}
             answers[0] = question.Choice1
@@ -25,17 +25,18 @@ templ Question(question database.Question){
             //     answers[i], answers[j] = answers[j], answers[i]
             // }
             }}
-            <ul class="w-full grid grid-cols-2">
+            <ul class="w-full flex flex-col py-5">
             for i, answer := range answers{
                 <li class="m-2">
                     <input id={fmt.Sprintf("answer_%s", i)} type="radio" name="answer" value={fmt.Sprintf("%d", i)} class="hidden peer" required>
-                    <label for={fmt.Sprintf("answer_%s", i)} class="flex justify-center w-full p-1 border-2 border-gray-200 peer-checked:border-black bg-gray-200 hover:bg-gray-300">
+                    <label for={fmt.Sprintf("answer_%s", i)} class="flex justify-center w-full p-1 text-[#DDDDDD] border-2 peer-checked:border-blue-500 bg-[#393E46] hover:bg-gray-800">
                         {answer}
                     </label>
+
                 </li>
             }
             </ul>
-            <button class="bg-gray-400 border-solid border-2 my-5" type="submit">
+            <button class="font-bold bg-[#FFD369] border-solid border-2 my-5" type="submit">
                 Submit Answer
             </button>
         </form>

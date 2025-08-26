@@ -56,14 +56,14 @@ func Login(params LoginParams, errors LoginError) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"max-w-80 mx-auto border-solid border-2 rounded m-5 p-2.5\" hx-target=\"this\" hx-swap=\"outerHTML\"><p class=\"text-center text-xl\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div class=\"bg-[#393E46] max-w-80 mx-auto border-solid border-2 rounded m-5 p-2.5\" hx-target=\"this\" hx-swap=\"outerHTML\"><p class=\"font-bold text-[#EEEEEE] text-center text-xl\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var2 string
 		templ_7745c5c3_Var2, templ_7745c5c3_Err = templ.JoinStringErrs(params.Title)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/login.templ`, Line: 36, Col: 52}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/login.templ`, Line: 36, Col: 77}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var2))
 		if templ_7745c5c3_Err != nil {
@@ -82,7 +82,7 @@ func Login(params LoginParams, errors LoginError) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "\"><label class=\"font-bold\" for=\"username\">Username</label> <input class=\"border-solid border-2\" id=\"username\" type=\"text\" name=\"username\" required><div class=\"text-red-500\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "\"><label class=\"text-[#EEEEEE]\" for=\"username\">Username</label> <input class=\"text-[#DDDDDD] border-solid border-2\" id=\"username\" type=\"text\" name=\"username\" required><div class=\"text-red-500\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -95,7 +95,7 @@ func Login(params LoginParams, errors LoginError) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "</div><label class=\"font-bold\" for=\"password\">Password</label> <input class=\"border-solid border-2\" id=\"password\" type=\"password\" name=\"password\" required><div class=\"text-red-500\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 4, "</div><label class=\"text-[#EEEEEE]\" for=\"password\">Password</label> <input class=\"text-[#DDDDDD] border-solid border-2\" id=\"password\" type=\"password\" name=\"password\" required><div class=\"text-red-500\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
@@ -108,7 +108,7 @@ func Login(params LoginParams, errors LoginError) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</div><button class=\"bg-gray-400 border-solid border-2 my-5\" type=\"submit\">Login</button><div class=\"text-red-500\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 5, "</div><button class=\"font-bold bg-[#FFD369] border-solid border-2 my-5\" type=\"submit\">Login</button><div class=\"text-red-500\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

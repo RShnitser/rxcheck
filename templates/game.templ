@@ -7,17 +7,21 @@ import(
 
 templ Game(classifications []database.ListDrugsByClassificationRow){
     <div
-    class="flex flex-col max-w-80 mx-auto border-solid border-2 rounded m-5 p-2.5"
+    class="bg-[#393E46] flex flex-col max-w-80 mx-auto border-solid border-2 rounded m-5 p-2.5"
     hx-target="this"
     hx-swap="outerHTML"
     >
-     for _, drugClass := range classifications {
-        <div class="font-bold bg-gray-400">{ drugClass.Classification }</div>
-         //<a hx-get={fmt.Sprintf("quiz/%s", drugClass.Classification)}>{drugClass.Classification}</a>
-         for _, drug := range drugClass.Drugs{
-             <div>{drug}</div>
-         }
-         <button class="w-auto m-1 p-1 bg-gray-200 border-solid border-2" hx-get={fmt.Sprintf("quiz/%s", drugClass.Classification)}>Practice</button>
-    }
+        <p class="font-bold text-[#EEEEEE] text-center text-xl">Test Your Knowledge</p>
+        <ul class="w-full flex flex-col py-2">
+        for _, drugClass := range classifications {
+            <li class="w-full border-t-2 border-[#DDDDDD] border-solid py-5">
+                <div class="text-[#EEEEEE] font-bold">{ drugClass.Classification }</div>
+                for _, drug := range drugClass.Drugs{
+                    <div class="text-[#DDDDDD]">{drug}</div>
+                }
+                <button class="w-full m-1 p-1 bg-[#FFD369] font-bold border-solid border-2" hx-get={fmt.Sprintf("quiz/%s", drugClass.Classification)}>Practice</button>
+            </li>
+        }
+        </ul>
     </div>
 }

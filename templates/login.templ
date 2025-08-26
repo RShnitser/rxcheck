@@ -29,31 +29,31 @@ var CREATE_USER_PARAMS = LoginParams{
 
 templ Login(params LoginParams, errors LoginError){
     <div
-    class="max-w-80 mx-auto border-solid border-2 rounded m-5 p-2.5"
+    class="bg-[#393E46] max-w-80 mx-auto border-solid border-2 rounded m-5 p-2.5"
     hx-target="this"
     hx-swap="outerHTML"
     >
-        <p class="text-center text-xl">{params.Title}</p>
+        <p class="font-bold text-[#EEEEEE] text-center text-xl">{params.Title}</p>
         <form class="flex flex-col gap-2" hx-post={params.SubmitURL}>
-            <label class="font-bold" for="username">Username</label>
+            <label class="text-[#EEEEEE]" for="username">Username</label>
             <input
-            class="border-solid border-2"
+            class="text-[#DDDDDD] border-solid border-2"
             id="username"
             type="text"
             name="username"
             required
             />
             <div class="text-red-500">{errors.Name}</div>
-            <label class="font-bold" for="password">Password</label>
+            <label class="text-[#EEEEEE]" for="password">Password</label>
             <input
-            class="border-solid border-2"
+            class="text-[#DDDDDD] border-solid border-2"
             id="password"
             type="password"
             name="password"
             required
             />
             <div class="text-red-500">{errors.Password}</div>
-            <button class="bg-gray-400 border-solid border-2 my-5" type="submit">
+            <button class="font-bold bg-[#FFD369] border-solid border-2 my-5" type="submit">
             Login
             </button>
             <div class="text-red-500">{errors.General}</div>
