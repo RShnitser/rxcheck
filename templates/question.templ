@@ -29,14 +29,14 @@ templ Question(question database.Question){
             for i, answer := range answers{
                 <li class="m-2">
                     <input id={fmt.Sprintf("answer_%s", i)} type="radio" name="answer" value={fmt.Sprintf("%d", i)} class="hidden peer" required>
-                    <label for={fmt.Sprintf("answer_%s", i)} class="flex justify-center w-full p-1 text-[#DDDDDD] border-2 peer-checked:border-blue-500 bg-[#393E46] hover:bg-gray-800">
+                    <label for={fmt.Sprintf("answer_%s", i)} class="rounded-lg flex justify-center w-full p-1 text-[#DDDDDD] border-2 peer-checked:border-blue-500 bg-[#393E46] hover:bg-gray-800">
                         {answer}
                     </label>
 
                 </li>
             }
             </ul>
-            <button class="font-bold bg-[#FFD369] border-solid border-2 my-5" type="submit">
+            <button class="rounded-lg font-bold bg-[#FFD369] border-solid border-2 my-5" type="submit">
                 Submit Answer
             </button>
         </form>

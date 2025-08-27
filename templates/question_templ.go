@@ -106,7 +106,7 @@ func Question(question database.Question) templ.Component {
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
-			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "\" class=\"flex justify-center w-full p-1 text-[#DDDDDD] border-2 peer-checked:border-blue-500 bg-[#393E46] hover:bg-gray-800\">")
+			templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 7, "\" class=\"rounded-lg flex justify-center w-full p-1 text-[#DDDDDD] border-2 peer-checked:border-blue-500 bg-[#393E46] hover:bg-gray-800\">")
 			if templ_7745c5c3_Err != nil {
 				return templ_7745c5c3_Err
 			}
@@ -124,7 +124,7 @@ func Question(question database.Question) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "</ul><button class=\"font-bold bg-[#FFD369] border-solid border-2 my-5\" type=\"submit\">Submit Answer</button></form></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "</ul><button class=\"rounded-lg font-bold bg-[#FFD369] border-solid border-2 my-5\" type=\"submit\">Submit Answer</button></form></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

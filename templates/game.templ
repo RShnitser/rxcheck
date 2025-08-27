@@ -19,7 +19,7 @@ templ Game(classifications []database.ListDrugsByClassificationRow){
                 for _, drug := range drugClass.Drugs{
                     <div class="text-[#DDDDDD]">{drug}</div>
                 }
-                <button class="w-full m-1 p-1 bg-[#FFD369] font-bold border-solid border-2" hx-get={fmt.Sprintf("quiz/%s", drugClass.Classification)}>Practice</button>
+                <button class="rounded-lg w-full m-1 p-1 bg-[#FFD369] font-bold border-solid border-2" hx-get={fmt.Sprintf("quiz/%s", drugClass.Classification)}>Practice</button>
             </li>
         }
         </ul>
