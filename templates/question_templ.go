@@ -124,7 +124,7 @@ func Question(question database.Question) templ.Component {
 				return templ_7745c5c3_Err
 			}
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "</ul><button class=\"rounded-lg font-bold bg-[#FFD369] border-solid border-2 my-5\" type=\"submit\">Submit Answer</button></form></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 9, "</ul><button class=\"rounded-lg font-bold bg-[#FFD369] hover:bg-amber-200 border-solid border-2 m-1 p-1\" type=\"submit\">Submit Answer</button></form></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

@@ -11,7 +11,7 @@ templ Summary(score int32){
         class="bg-[#393E46] flex flex-col text-center max-w-80 mx-auto border-solid border-2 rounded m-5 p-2.5"
     >
         <p class="text-[#EEEEEE] text-xl font-bold">Quiz Over</p>
-        <div class="text-[#DDDDDD]">{fmt.Sprintf("Score: %d/5", score)}</div>
-        <button class="rounded-lg font-bold bg-[#FFD369] w-auto m-1 p-1 hover:bg-gray-300 border-solid border-2"  hx-get="/menu">Menu</button>
+        <div class="my-10 text-[#DDDDDD]">{fmt.Sprintf("Score: %d/5", score)}</div>
+        <button class="rounded-lg font-bold bg-[#FFD369] w-full m-1 p-1 hover:bg-amber-200 border-solid border-2"  hx-get="/menu">Menu</button>
     </div>
 }

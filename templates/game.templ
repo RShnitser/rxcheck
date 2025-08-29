@@ -15,11 +15,13 @@ templ Game(classifications []database.ListDrugsByClassificationRow){
         <ul class="w-full flex flex-col py-2">
         for _, drugClass := range classifications {
             <li class="w-full border-t-2 border-[#DDDDDD] border-solid py-5">
-                <div class="text-[#EEEEEE] font-bold">{ drugClass.Classification }</div>
+                <div class="text-[#EEEEEE] font-bold mb-1">{ drugClass.Classification }</div>
+                <ul class="mb-10">
                 for _, drug := range drugClass.Drugs{
-                    <div class="text-[#DDDDDD]">{drug}</div>
+                    <li class="text-[#DDDDDD]">{drug}</li>
                 }
-                <button class="rounded-lg w-full m-1 p-1 bg-[#FFD369] font-bold border-solid border-2" hx-get={fmt.Sprintf("quiz/%s", drugClass.Classification)}>Practice</button>
+                </ul>
+                <button class="rounded-lg w-full m-1 p-1 bg-[#FFD369] hover:bg-amber-200 font-bold border-solid border-2" hx-get={fmt.Sprintf("quiz/%s", drugClass.Classification)}>Practice</button>
             </li>
         }
         </ul>

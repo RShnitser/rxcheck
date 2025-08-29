@@ -42,20 +42,20 @@ func Explanation(question, explanation string) templ.Component {
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</p><p class=\"text-[#DDDDDD] p-1\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 2, "</p><p class=\"text-[#DDDDDD] my-10 p-1\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
 		var templ_7745c5c3_Var3 string
 		templ_7745c5c3_Var3, templ_7745c5c3_Err = templ.JoinStringErrs(explanation)
 		if templ_7745c5c3_Err != nil {
-			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/explanation.templ`, Line: 10, Col: 50}
+			return templ.Error{Err: templ_7745c5c3_Err, FileName: `templates/explanation.templ`, Line: 10, Col: 56}
 		}
 		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString(templ.EscapeString(templ_7745c5c3_Var3))
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "</p><form class=\"flex\"><input type=\"hidden\" name=\"answer\" value=\"-1\"> <button class=\"rounded-lg font-bold bg-[#FFD369] mx-auto my-1 p-1 hover:bg-gray-300 border-solid border-2\" hx-post=\"/question\" type=\"submit\">Continue</button></form></div>")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 3, "</p><form class=\"flex\"><input type=\"hidden\" name=\"answer\" value=\"-1\"> <button class=\"w-full rounded-lg font-bold bg-[#FFD369] mx-auto m-1 p-1 hover:bg-amber-200 border-solid border-2\" hx-post=\"/question\" type=\"submit\">Continue</button></form></div>")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
