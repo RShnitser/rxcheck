@@ -7,20 +7,18 @@ package database
 
 import (
 	"context"
-
-	"github.com/google/uuid"
 )
 
 const createSession = `-- name: CreateSession :one
 INSERT INTO sessions (id, user_id, question_1, question_2, question_3, question_4, question_5, score, question_index)
 VALUES (
-    gen_random_uuid(),
-    $1,
-    $2,
-    $3,
-    $4,
-    $5,
-    $6,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
     0,
     0
 )
@@ -28,16 +26,18 @@ RETURNING id, user_id, question_1, question_2, question_3, question_4, question_
 `
 
 type CreateSessionParams struct {
-	UserID    uuid.UUID
-	Question1 uuid.UUID
-	Question2 uuid.UUID
-	Question3 uuid.UUID
-	Question4 uuid.UUID
-	Question5 uuid.UUID
+	ID        string
+	UserID    string
+	Question1 string
+	Question2 string
+	Question3 string
+	Question4 string
+	Question5 string
 }
 
 func (q *Queries) CreateSession(ctx context.Context, arg CreateSessionParams) (Session, error) {
 	row := q.db.QueryRowContext(ctx, createSession,
+		arg.ID,
 		arg.UserID,
 		arg.Question1,
 		arg.Question2,
@@ -61,20 +61,20 @@ func (q *Queries) CreateSession(ctx context.Context, arg CreateSessionParams) (S
 }
 
 const deleteSession = `-- name: DeleteSession :exec
-DELETE FROM sessions WHERE user_id = $1
+DELETE FROM sessions WHERE user_id = ?
 `
 
-func (q *Queries) DeleteSession(ctx context.Context, userID uuid.UUID) error {
+func (q *Queries) DeleteSession(ctx context.Context, userID string) error {
 	_, err := q.db.ExecContext(ctx, deleteSession, userID)
 	return err
 }
 
 const getSessionByUserID = `-- name: GetSessionByUserID :one
 SELECT id, user_id, question_1, question_2, question_3, question_4, question_5, score, question_index FROM sessions
-WHERE user_id = $1
+WHERE user_id = ?
 `
 
-func (q *Queries) GetSessionByUserID(ctx context.Context, userID uuid.UUID) (Session, error) {
+func (q *Queries) GetSessionByUserID(ctx context.Context, userID string) (Session, error) {
 	row := q.db.QueryRowContext(ctx, getSessionByUserID, userID)
 	var i Session
 	err := row.Scan(
@@ -93,18 +93,18 @@ func (q *Queries) GetSessionByUserID(ctx context.Context, userID uuid.UUID) (Ses
 
 const updateSession = `-- name: UpdateSession :exec
 UPDATE sessions
-SET score = $2, 
-question_index = $3
-WHERE id = $1
+SET score = ?, 
+question_index = ?
+WHERE id = ?
 `
 
 type UpdateSessionParams struct {
-	ID            uuid.UUID
-	Score         int32
-	QuestionIndex int32
+	Score         int64
+	QuestionIndex int64
+	ID            string
 }
 
 func (q *Queries) UpdateSession(ctx context.Context, arg UpdateSessionParams) error {
-	_, err := q.db.ExecContext(ctx, updateSession, arg.ID, arg.Score, arg.QuestionIndex)
+	_, err := q.db.ExecContext(ctx, updateSession, arg.Score, arg.QuestionIndex, arg.ID)
 	return err
 }

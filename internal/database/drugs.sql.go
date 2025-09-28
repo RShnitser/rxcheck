@@ -7,30 +7,33 @@ package database
 
 import (
 	"context"
-
-	"github.com/google/uuid"
-	"github.com/lib/pq"
 )
 
 const createDrug = `-- name: CreateDrug :one
 INSERT INTO drugs (id, generic_name, brand_name, classification_id)
 VALUES (
-    gen_random_uuid(),
-    $1,
-    $2,
-    $3
+    ?,
+    ?,
+    ?,
+    ?
 )
 RETURNING id, generic_name, brand_name, classification_id
 `
 
 type CreateDrugParams struct {
+	ID               string
 	GenericName      string
 	BrandName        string
-	ClassificationID uuid.UUID
+	ClassificationID string
 }
 
 func (q *Queries) CreateDrug(ctx context.Context, arg CreateDrugParams) (Drug, error) {
-	row := q.db.QueryRowContext(ctx, createDrug, arg.GenericName, arg.BrandName, arg.ClassificationID)
+	row := q.db.QueryRowContext(ctx, createDrug,
+		arg.ID,
+		arg.GenericName,
+		arg.BrandName,
+		arg.ClassificationID,
+	)
 	var i Drug
 	err := row.Scan(
 		&i.ID,
@@ -52,7 +55,7 @@ func (q *Queries) DeleteDrugs(ctx context.Context) error {
 
 const getDrugByGenericName = `-- name: GetDrugByGenericName :one
 SELECT id, generic_name, brand_name, classification_id FROM drugs
-WHERE generic_name = $1
+WHERE generic_name = ?
 `
 
 func (q *Queries) GetDrugByGenericName(ctx context.Context, genericName string) (Drug, error) {
@@ -70,16 +73,17 @@ func (q *Queries) GetDrugByGenericName(ctx context.Context, genericName string) 
 const listDrugsByClassification = `-- name: ListDrugsByClassification :many
 SELECT
     classifications.name as classification,
-    ARRAY_AGG(drugs.generic_name ORDER BY drugs.generic_name)::text[] as drugs
-FROM drugs
-JOIN classifications ON drugs.classification_id = classifications.id
+    group_concat(drugs.generic_name) as drugs
+FROM 
+    drugs
+    JOIN classifications ON drugs.classification_id = classifications.id
 GROUP BY classifications.name
 ORDER BY classifications.name
 `
 
 type ListDrugsByClassificationRow struct {
 	Classification string
-	Drugs          []string
+	Drugs          string
 }
 
 func (q *Queries) ListDrugsByClassification(ctx context.Context) ([]ListDrugsByClassificationRow, error) {
@@ -91,7 +95,7 @@ func (q *Queries) ListDrugsByClassification(ctx context.Context) ([]ListDrugsByC
 	var items []ListDrugsByClassificationRow
 	for rows.Next() {
 		var i ListDrugsByClassificationRow
-		if err := rows.Scan(&i.Classification, pq.Array(&i.Drugs)); err != nil {
+		if err := rows.Scan(&i.Classification, &i.Drugs); err != nil {
 			return nil, err
 		}
 		items = append(items, i)

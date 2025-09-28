@@ -7,62 +7,60 @@ package database
 import (
 	"database/sql"
 	"time"
-
-	"github.com/google/uuid"
 )
 
 type Classification struct {
-	ID   uuid.UUID
+	ID   string
 	Name string
 }
 
 type Drug struct {
-	ID               uuid.UUID
+	ID               string
 	GenericName      string
 	BrandName        string
-	ClassificationID uuid.UUID
+	ClassificationID string
 }
 
 type Question struct {
-	ID               uuid.UUID
-	ClassificationID uuid.UUID
-	DrugID           uuid.UUID
+	ID               string
+	ClassificationID string
+	DrugID           string
 	Text             string
 	Choice1          string
 	Choice2          string
 	Choice3          string
 	Choice4          string
 	Explanation      string
-	AnswerIndex      int32
+	AnswerIndex      int64
 }
 
 type RefreshToken struct {
 	Token     string
 	CreatedAt time.Time
 	UpdatedAt time.Time
-	UserID    uuid.UUID
+	UserID    string
 	ExpiresAt time.Time
 	RevokedAt sql.NullTime
 }
 
 type Session struct {
-	ID            uuid.UUID
-	UserID        uuid.UUID
-	Question1     uuid.UUID
-	Question2     uuid.UUID
-	Question3     uuid.UUID
-	Question4     uuid.UUID
-	Question5     uuid.UUID
-	Score         int32
-	QuestionIndex int32
+	ID            string
+	UserID        string
+	Question1     string
+	Question2     string
+	Question3     string
+	Question4     string
+	Question5     string
+	Score         int64
+	QuestionIndex int64
 }
 
 type User struct {
-	ID             uuid.UUID
+	ID             string
 	UserName       string
 	HashedPassword string
 	CreatedAt      time.Time
 	UpdatedAt      time.Time
 	LastDaily      sql.NullTime
-	Streak         int32
+	Streak         int64
 }

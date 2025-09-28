@@ -10,16 +10,18 @@ import (
 )
 
 const createClassification = `-- name: CreateClassification :one
-INSERT INTO classifications (id, name)
-VALUES (
-    gen_random_uuid(),
-    $1
-)
+INSERT INTO classifications(id, name) 
+VALUES (?, ?)
 RETURNING id, name
 `
 
-func (q *Queries) CreateClassification(ctx context.Context, name string) (Classification, error) {
-	row := q.db.QueryRowContext(ctx, createClassification, name)
+type CreateClassificationParams struct {
+	ID   string
+	Name string
+}
+
+func (q *Queries) CreateClassification(ctx context.Context, arg CreateClassificationParams) (Classification, error) {
+	row := q.db.QueryRowContext(ctx, createClassification, arg.ID, arg.Name)
 	var i Classification
 	err := row.Scan(&i.ID, &i.Name)
 	return i, err
@@ -36,7 +38,7 @@ func (q *Queries) DeleteClassifications(ctx context.Context) error {
 
 const getClassificationByName = `-- name: GetClassificationByName :one
 SELECT id, name FROM classifications
-WHERE name = $1
+WHERE name = ?
 `
 
 func (q *Queries) GetClassificationByName(ctx context.Context, name string) (Classification, error) {

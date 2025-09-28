@@ -1,7 +1,7 @@
 package main
 
 import(
-	_ "github.com/lib/pq"
+	_ "github.com/tursodatabase/libsql-client-go/libsql"
 	"fmt"
 	"os"
 	"context"
@@ -11,6 +11,7 @@ import(
 	"database/sql"
 
 	"github.com/joho/godotenv"
+	"github.com/google/uuid"
 )
 
 type userData struct{
@@ -28,7 +29,7 @@ type questionData struct {
 	GenericName   string   `json:"generic_name"`
 	Question      string   `json:"question"`
 	Choices       []string `json:"choices"`
-	CorrectAnswer int32      `json:"correct_answer"`
+	CorrectAnswer int64    `json:"correct_answer"`
 	Explanation   string   `json:"explanation"`
 }
 
@@ -47,7 +48,7 @@ func main(){
 		return
 	}
 
-	dbConnection, err := sql.Open("postgres", dbURL)
+	dbConnection, err := sql.Open("libsql", dbURL)
 	if err != nil {
 		fmt.Printf("Could not connect to database: %s\n", err)
 		return
@@ -77,9 +78,9 @@ func main(){
 			fmt.Println("unable to hash password")
 			return
 		}
-		_, err = db.CreateUser(context.Background(), database.CreateUserParams{user.name, hashPass})
+		_, err = db.CreateUser(context.Background(), database.CreateUserParams{ uuid.New().String(), user.name, hashPass})
 		if err != nil{
-			fmt.Println("unable to create user")
+			fmt.Printf("unable to create user: %s\n", err)
 			return
 		}
 	}
@@ -108,7 +109,7 @@ func main(){
 	}
 
 	for _, classification := range classifications{
-		_, err = db.CreateClassification(context.Background(), classification)
+		_, err = db.CreateClassification(context.Background(), database.CreateClassificationParams{uuid.New().String(), classification})
 		if err != nil {
 			fmt.Printf("Could not create classification: %s\n", err)
 			return
@@ -133,7 +134,7 @@ func main(){
 			return
 		}
 
-		_, err = db.CreateDrug(context.Background(), database.CreateDrugParams{drug.genericName, drug.brandName, classification.ID})
+		_, err = db.CreateDrug(context.Background(), database.CreateDrugParams{uuid.New().String(), drug.genericName, drug.brandName, classification.ID})
 		if err != nil {
 			fmt.Printf("Could not create drug: %s\n", err)
 			return
@@ -177,6 +178,7 @@ func main(){
 		}
 
 		params := database.CreateQuestionParams{
+			uuid.New().String(),
 			drug.ClassificationID,
 			drug.ID,
 			qData.Question,

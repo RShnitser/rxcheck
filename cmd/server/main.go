@@ -1,7 +1,7 @@
 package main
 
 import(
-	_ "github.com/lib/pq"
+	_ "github.com/tursodatabase/libsql-client-go/libsql"
 	"net/http"
 	"fmt"
 	"os"
@@ -37,7 +37,7 @@ func main(){
 		return
 	}
 
-	dbConnection, err := sql.Open("postgres", dbURL)
+	dbConnection, err := sql.Open("libsql", dbURL)
 	if err != nil {
 		fmt.Printf("Could not connect to database: %s\n", err)
 		return

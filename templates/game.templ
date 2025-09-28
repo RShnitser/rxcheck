@@ -2,6 +2,7 @@ package templates
 
 import(
     "fmt"
+    "strings"
     "rxcheck/internal/database"
 )
 
@@ -17,7 +18,7 @@ templ Game(classifications []database.ListDrugsByClassificationRow){
             <li class="w-full border-t-2 border-[#DDDDDD] border-solid py-5">
                 <div class="text-[#EEEEEE] font-bold mb-1">{ drugClass.Classification }</div>
                 <ul class="mb-10">
-                for _, drug := range drugClass.Drugs{
+                for _, drug := range strings.Split(drugClass.Drugs, ","){
                     <li class="text-[#DDDDDD]">{drug}</li>
                 }
                 </ul>

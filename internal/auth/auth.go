@@ -2,24 +2,24 @@ package auth
 
 import(
 	"time"
-	"fmt"
+	//"fmt"
 	"net/http"
 	"strings"
 	"errors"
 	"crypto/rand"
 	"encoding/hex"
 	
-	"github.com/google/uuid"
+	//"github.com/google/uuid"
 	"github.com/golang-jwt/jwt/v5"
 	"golang.org/x/crypto/bcrypt"
 )
 
-func MakeJWT(userID uuid.UUID, tokenSecret string, expiresIn time.Duration) (string, error){
+func MakeJWT(userID string, tokenSecret string, expiresIn time.Duration) (string, error){
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.RegisteredClaims{
 		Issuer: "rxcheck",
 		IssuedAt: jwt.NewNumericDate(time.Now().UTC()),
 		ExpiresAt: jwt.NewNumericDate(time.Now().UTC().Add(expiresIn)),
-		Subject: userID.String(),
+		Subject: userID,
 	})
 
 	tokenString, err := token.SignedString([]byte(tokenSecret))
@@ -30,35 +30,35 @@ func MakeJWT(userID uuid.UUID, tokenSecret string, expiresIn time.Duration) (str
 	return tokenString, nil
 }
 
-func ValidateJWT(tokenString, tokenSecret string) (uuid.UUID, error){
+func ValidateJWT(tokenString, tokenSecret string) (string, error){
 
 	token, err := jwt.ParseWithClaims(tokenString, &jwt.RegisteredClaims{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(tokenSecret), nil
 	})
 
 	if err != nil {
-		return uuid.Nil, err
+		return "", err
 	} 
 	
 	userIDString, err := token.Claims.GetSubject()
 	if err != nil {
-		return uuid.Nil, err
+		return "", err
 	}
 
 	issuer, err := token.Claims.GetIssuer()
 	if err != nil {
-		return uuid.Nil, err
+		return "", err
 	}
 	if issuer != "rxcheck" {
-		return uuid.Nil, errors.New("invalid issuer")
+		return "", errors.New("invalid issuer")
 	}
 
-	id, err := uuid.Parse(userIDString)
-	if err != nil {
-		return uuid.Nil, fmt.Errorf("invalid user ID: %w", err)
-	}
+	// id, err := uuid.Parse(userIDString)
+	// if err != nil {
+	// 	return uuid.Nil, fmt.Errorf("invalid user ID: %w", err)
+	// }
 
-	return id, nil
+	return userIDString, nil
 }
 
 func GetBearerToken(headers http.Header) (string, error){

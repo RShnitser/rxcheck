@@ -1,6 +1,6 @@
 -- +goose Up
 CREATE TABLE classifications(
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    id TEXT PRIMARY KEY NOT NULL,
     name TEXT UNIQUE NOT NULL
 );
 

@@ -1,8 +1,8 @@
 -- +goose Up
 CREATE TABLE questions(
-    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    classification_id UUID NOT NULL,
-    drug_id UUID NOT NULL,
+    id TEXT PRIMARY KEY NOT NULL,
+    classification_id TEXT NOT NULL,
+    drug_id TEXT NOT NULL,
     text TEXT NOT NULL,
     choice_1 TEXT NOT NULL,
     choice_2 TEXT NOT NULL,

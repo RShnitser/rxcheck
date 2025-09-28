@@ -6,7 +6,7 @@ import(
 	"rxcheck/internal/database"
 	"rxcheck/templates"
 	"strconv"
-	"github.com/google/uuid"
+	//"github.com/google/uuid"
 	//"fmt"
 )
 
@@ -30,8 +30,8 @@ func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	var questionID uuid.UUID
-	var nextQuestionID uuid.UUID
+	var questionID string
+	var nextQuestionID string
 	switch session.QuestionIndex{
 	case 0:
 		questionID = session.Question1
@@ -64,7 +64,7 @@ func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	if int32(answer) == -1{
+	if int64(answer) == -1{
 		//fmt.Println("Previous page was explanation.  Displaying question.")
 		if session.QuestionIndex == 4{
 			//fmt.Println("displaying summary")
@@ -76,17 +76,17 @@ func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 	}
 	
 	newScore := session.Score
-	if int32(answer) == question.AnswerIndex{
+	if int64(answer) == question.AnswerIndex{
 		newScore += 1
 	}
 		
-	err = cfg.db.UpdateSession(r.Context(), database.UpdateSessionParams{session.ID, newScore, session.QuestionIndex + 1})
+	err = cfg.db.UpdateSession(r.Context(), database.UpdateSessionParams{newScore, session.QuestionIndex + 1, session.ID})
 	if err != nil{
 		//fmt.Println("could not update session")
 		return
 	}
 	
-	if int32(answer) != question.AnswerIndex{
+	if int64(answer) != question.AnswerIndex{
 		//fmt.Println("displaying explanation")
 		templates.Explanation(question.Text, question.Explanation).Render(r.Context(), w)
 		return

@@ -6,6 +6,8 @@ import(
 	"rxcheck/internal/database"
 	"rxcheck/templates"
 	//"fmt"
+
+	"github.com/google/uuid"
 )
 
 func (cfg *config)handleCreateQuiz(w http.ResponseWriter, r *http.Request){
@@ -40,6 +42,7 @@ func (cfg *config)handleCreateQuiz(w http.ResponseWriter, r *http.Request){
 	//fmt.Printf("Question Length: %d", len(questions))
 
 	sessionParams := database.CreateSessionParams{
+		uuid.New().String(),
 		userID,
 		questions[0].ID,
 		questions[1].ID,

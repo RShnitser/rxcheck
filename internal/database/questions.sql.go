@@ -7,41 +7,41 @@ package database
 
 import (
 	"context"
-
-	"github.com/google/uuid"
 )
 
 const createQuestion = `-- name: CreateQuestion :one
 INSERT INTO questions (id, classification_id, drug_id, text, choice_1, choice_2, choice_3, choice_4, explanation, answer_index)
 VALUES (
-    gen_random_uuid(),
-    $1,
-    $2,
-    $3,
-    $4,
-    $5,
-    $6,
-    $7,
-    $8,
-    $9
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?,
+    ?
 )
 RETURNING id, classification_id, drug_id, text, choice_1, choice_2, choice_3, choice_4, explanation, answer_index
 `
 
 type CreateQuestionParams struct {
-	ClassificationID uuid.UUID
-	DrugID           uuid.UUID
+	ID               string
+	ClassificationID string
+	DrugID           string
 	Text             string
 	Choice1          string
 	Choice2          string
 	Choice3          string
 	Choice4          string
 	Explanation      string
-	AnswerIndex      int32
+	AnswerIndex      int64
 }
 
 func (q *Queries) CreateQuestion(ctx context.Context, arg CreateQuestionParams) (Question, error) {
 	row := q.db.QueryRowContext(ctx, createQuestion,
+		arg.ID,
 		arg.ClassificationID,
 		arg.DrugID,
 		arg.Text,
@@ -79,10 +79,10 @@ func (q *Queries) DeleteQuestions(ctx context.Context) error {
 
 const getQuestionByID = `-- name: GetQuestionByID :one
 SELECT id, classification_id, drug_id, text, choice_1, choice_2, choice_3, choice_4, explanation, answer_index FROM questions
-WHERE id = $1
+WHERE id = ?
 `
 
-func (q *Queries) GetQuestionByID(ctx context.Context, id uuid.UUID) (Question, error) {
+func (q *Queries) GetQuestionByID(ctx context.Context, id string) (Question, error) {
 	row := q.db.QueryRowContext(ctx, getQuestionByID, id)
 	var i Question
 	err := row.Scan(
@@ -102,12 +102,12 @@ func (q *Queries) GetQuestionByID(ctx context.Context, id uuid.UUID) (Question, 
 
 const listRandomQuestionsByClassification = `-- name: ListRandomQuestionsByClassification :many
 SELECT id, classification_id, drug_id, text, choice_1, choice_2, choice_3, choice_4, explanation, answer_index FROM questions
-WHERE classification_id = $1
+WHERE classification_id = ?
 ORDER BY RANDOM()
 LIMIT 5
 `
 
-func (q *Queries) ListRandomQuestionsByClassification(ctx context.Context, classificationID uuid.UUID) ([]Question, error) {
+func (q *Queries) ListRandomQuestionsByClassification(ctx context.Context, classificationID string) ([]Question, error) {
 	rows, err := q.db.QueryContext(ctx, listRandomQuestionsByClassification, classificationID)
 	if err != nil {
 		return nil, err

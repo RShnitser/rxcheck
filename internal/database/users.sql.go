@@ -12,11 +12,11 @@ import (
 const createUser = `-- name: CreateUser :one
 INSERT INTO users (id, user_name, hashed_password, created_at, updated_at, last_daily, streak)
 VALUES (
-    gen_random_uuid(),
-    $1,
-    $2,
-    NOW(),
-    NOW(),
+    ?,
+    ?,
+    ?,
+    CURRENT_TIMESTAMP,
+    CURRENT_TIMESTAMP,
     NULL,
     0
 )
@@ -24,12 +24,13 @@ RETURNING id, user_name, hashed_password, created_at, updated_at, last_daily, st
 `
 
 type CreateUserParams struct {
+	ID             string
 	UserName       string
 	HashedPassword string
 }
 
 func (q *Queries) CreateUser(ctx context.Context, arg CreateUserParams) (User, error) {
-	row := q.db.QueryRowContext(ctx, createUser, arg.UserName, arg.HashedPassword)
+	row := q.db.QueryRowContext(ctx, createUser, arg.ID, arg.UserName, arg.HashedPassword)
 	var i User
 	err := row.Scan(
 		&i.ID,
@@ -54,7 +55,7 @@ func (q *Queries) DeleteUsers(ctx context.Context) error {
 
 const getUserByUserName = `-- name: GetUserByUserName :one
 SELECT id, user_name, hashed_password, created_at, updated_at, last_daily, streak FROM users
-WHERE user_name = $1
+WHERE user_name = ?
 `
 
 func (q *Queries) GetUserByUserName(ctx context.Context, userName string) (User, error) {

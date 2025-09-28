@@ -1,11 +1,11 @@
 -- name: CreateUser :one
 INSERT INTO users (id, user_name, hashed_password, created_at, updated_at, last_daily, streak)
 VALUES (
-    gen_random_uuid(),
-    $1,
-    $2,
-    NOW(),
-    NOW(),
+    ?,
+    ?,
+    ?,
+    CURRENT_TIMESTAMP,
+    CURRENT_TIMESTAMP,
     NULL,
     0
 )
@@ -16,4 +16,4 @@ DELETE FROM users;
 
 -- name: GetUserByUserName :one
 SELECT * FROM users
-WHERE user_name = $1;
+WHERE user_name = ?;

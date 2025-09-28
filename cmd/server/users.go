@@ -6,7 +6,7 @@ import(
 	"rxcheck/internal/database"
 	//"time"
 	//"fmt"
-	//"github.com/google/uuid"
+	"github.com/google/uuid"
 	//"encoding/json"
 	"rxcheck/templates"
 )
@@ -38,6 +38,7 @@ func(cfg *config) handleCreateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	userParams := database.CreateUserParams{
+		ID: uuid.New().String(),
 		UserName: userName,
 		HashedPassword: hashPass,
 	}
