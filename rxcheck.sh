@@ -13,10 +13,10 @@ case "$1" in
         tailwindcss -i ./static/input.css -o ./static/output.css
         ;;
     up)
-        cd sql/schema; goose postgres ${DB_URL} up
+        cd sql/schema; goose turso ${DB_URL} up
         ;;
     down)
-        cd sql/schema; goose postgres ${DB_URL} down
+        cd sql/schema; goose turso ${DB_URL} down
         ;;
     watch)
         templ generate --watch --cmd="go run ./cmd/server/" --proxy="http://localhost:8080"
