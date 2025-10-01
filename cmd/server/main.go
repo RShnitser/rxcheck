@@ -6,6 +6,7 @@ import(
 	"fmt"
 	"os"
 	"rxcheck/internal/database"
+	"rxcheck/static"
 	"database/sql"
 
 	"github.com/joho/godotenv"
@@ -48,7 +49,8 @@ func main(){
 		jwtSecret: jwtSecret,
 	}
 
-	fs := http.FileServer(http.Dir("./static"))
+	//fs := http.FileServer(http.Dir("./static"))
+	fs := http.FileServer(http.FS(static.StaticFiles))
 	
 	mux := http.NewServeMux()
     mux.Handle("/static/", http.StripPrefix("/static/", fs))

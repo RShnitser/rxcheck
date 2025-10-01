@@ -10,7 +10,7 @@ case "$1" in
         go run ./cmd/seed/main.go
         ;;
     tailwind)
-        tailwindcss -i ./static/input.css -o ./static/styles.css
+        tailwindcss -i input.css -o ./static/styles.css
         ;;
     up)
         cd sql/schema; goose turso ${DB_URL} up

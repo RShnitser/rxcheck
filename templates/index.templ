@@ -1,6 +1,6 @@
 package templates 
 
-templ Index (text string){
+templ Index (){
     <!DOCTYPE html>
     <html lang="en">
         <head>
@@ -12,7 +12,6 @@ templ Index (text string){
 			<script src="/static/htmx.min.js"></script>
 		</head>
 		<body class="bg-[#222831]">
-            // <div class="mx-auto text-9xl text-red-200">{text}</div>
 			@Login(
 				LoginParams{
 					Title: "Login", 

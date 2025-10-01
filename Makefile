@@ -10,7 +10,7 @@ down:
 
 .PHONY: tailwind
 tailwind:
-	tailwindcss -i ./static/input.css -o ./static/styles.css
+	tailwindcss -i input.css -o ./static/styles.css
 
 .PHONY: run
 run:
