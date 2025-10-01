@@ -10,7 +10,7 @@ down:
 
 .PHONY: tailwind
 tailwind:
-	tailwindcss -i ./static/input.css -o ./static/output.css
+	tailwindcss -i ./static/input.css -o ./static/styles.css
 
 .PHONY: run
 run:
@@ -19,3 +19,15 @@ run:
 .PHONY: seed
 seed:
 	go run ./cmd/seed/main.go
+
+.PHONY: gbuild
+gbuild:
+	go build ./cmd/server/
+
+.PHONY: dbuild
+dbuild:
+	docker build . -t rxcheck:latest
+
+.PHONY: drun
+drun:
+	docker run --env-file=.env -p 8080:8080 rxcheck

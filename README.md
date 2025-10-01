@@ -18,7 +18,7 @@ go install github.com/a-h/templ/cmd/templ@latest
 ```
 create .env file with these variables:
 PORT : port number
-DB_URL : postgres database url
+DB_URL : turso database url
 JWT_SECRET : randomly generated key
 
 ## Running
