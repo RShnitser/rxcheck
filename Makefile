@@ -14,7 +14,7 @@ tailwind:
 
 .PHONY: run
 run:
-	go run ./cmd/server/
+	go run -tags=local ./cmd/server/ 
 
 .PHONY: seed
 seed:

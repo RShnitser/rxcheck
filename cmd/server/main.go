@@ -2,13 +2,13 @@ package main
 
 import(
 	//_ "github.com/tursodatabase/libsql-client-go/libsql"
-	_ "github.com/tursodatabase/go-libsql"
+	//_ "github.com/tursodatabase/go-libsql"
 	"net/http"
 	"fmt"
 	"os"
 	"rxcheck/internal/database"
 	"rxcheck/static"
-	"database/sql"
+	//"database/sql"
 
 	"github.com/joho/godotenv"
 )
@@ -39,7 +39,8 @@ func main(){
 		return
 	}
 
-	dbConnection, err := sql.Open("libsql", dbURL)
+	//dbConnection, err := sql.Open("libsql", dbURL)
+	dbConnection, err := GetDBConnection(dbURL)
 	if err != nil {
 		fmt.Printf("Could not connect to database: %s\n", err)
 		return
