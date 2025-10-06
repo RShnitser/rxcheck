@@ -6,13 +6,13 @@ import(
     "rxcheck/internal/database"
 )
 
-templ Question(question database.Question){
+templ Question(question database.Question, questionIndex int64){
     <div  
         hx-target="this"
         hx-swap="outerHTML"
         class="bg-[#393E46] max-w-lg mx-auto border-solid border-2 rounded m-5 p-2.5"
     >
-        <p class="text-[#EEEEEE] text-xl font-bold">{question.Text}</p>
+        <p class="text-[#EEEEEE] text-xl font-bold">{fmt.Sprintf("%d. %s", questionIndex, question.Text)}</p>
         <form class="flex flex-col gap-2" hx-post="/question">
             {{answers := [4]string{}
             answers[0] = question.Choice1

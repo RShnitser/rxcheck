@@ -55,5 +55,5 @@ func (cfg *config)handleCreateQuiz(w http.ResponseWriter, r *http.Request){
 		return
 	}
 
-	templates.Question(questions[0]).Render(r.Context(), w)
+	templates.Question(questions[0], 1).Render(r.Context(), w)
 }

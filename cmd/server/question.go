@@ -71,7 +71,7 @@ func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 			templates.Summary(session.Score).Render(r.Context(), w)
 			return
 		}
-		templates.Question(question).Render(r.Context(), w)
+		templates.Question(question, session.QuestionIndex + 1).Render(r.Context(), w)
 		return
 	}
 	
@@ -104,5 +104,5 @@ func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 		return
 	}
 	
-	templates.Question(nextQuestion).Render(r.Context(), w)
+	templates.Question(nextQuestion, session.QuestionIndex + 2).Render(r.Context(), w)
 }
