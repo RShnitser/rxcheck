@@ -1,12 +1,14 @@
 package templates
 
-templ Explanation(question, explanation string){
+templ Explanation(question, explanation, correct, incorrect string){
     <div
         hx-target="this"
         hx-swap="outerHTML transition:true"
         class="slide-it bg-[#393E46] max-w-lg mx-auto border-solid border-2 rounded m-5 p-2.5"
     >
         <p class="text-[#EEEEEE] text-xl font-bold">{question}</p>
+        <p class="border-solid border-2 border-red-500 bg-red-900 text-[#DDDDDD] my-10 p-1">{incorrect}</p>
+        <p class="border-solid border-2 border-green-500 bg-green-900 text-[#DDDDDD] my-10 p-1">{correct}</p>
         <p class="text-[#DDDDDD] my-10 p-1">{explanation}</p>
         <form class="flex">
             <input type="hidden" name="answer" value="-1">

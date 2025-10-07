@@ -10,6 +10,21 @@ import(
 	//"fmt"
 )
 
+func getAnswerTextFromIndex(question database.Question, answer int64)string{
+	switch answer{
+	case 0:
+		return question.Choice1
+	case 1:
+		return question.Choice2
+	case 2:
+		return question.Choice3
+	case 3:
+		return question.Choice4
+	}
+
+	return ""
+}
+
 func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 	
 	token, err := auth.GetBearerToken(r.Header)
@@ -88,7 +103,9 @@ func (cfg *config)handleGetQuestion(w http.ResponseWriter, r *http.Request){
 	
 	if int64(answer) != question.AnswerIndex{
 		//fmt.Println("displaying explanation")
-		templates.Explanation(question.Text, question.Explanation).Render(r.Context(), w)
+		correct := getAnswerTextFromIndex(question, question.AnswerIndex)
+		incorrect := getAnswerTextFromIndex(question, int64(answer))
+		templates.Explanation(question.Text, question.Explanation, correct, incorrect).Render(r.Context(), w)
 		return
 	}
 

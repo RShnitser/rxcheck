@@ -590,6 +590,12 @@
   .border-\[\#DDDDDD\] {
     border-color: #DDDDDD;
   }
+  .border-green-500 {
+    border-color: var(--color-green-500);
+  }
+  .border-red-500 {
+    border-color: var(--color-red-500);
+  }
   .bg-\[\#393E46\] {
     background-color: #393E46;
   }
@@ -598,6 +604,12 @@
   }
   .bg-\[\#FFD369\] {
     background-color: #FFD369;
+  }
+  .bg-green-900 {
+    background-color: var(--color-green-900);
+  }
+  .bg-red-900 {
+    background-color: var(--color-red-900);
   }
   .p-1 {
     padding: calc(var(--spacing) * 1);
