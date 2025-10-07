@@ -614,10 +614,6 @@
   .text-center {
     text-align: center;
   }
-  .text-9xl {
-    font-size: var(--text-9xl);
-    line-height: var(--tw-leading, var(--text-9xl--line-height));
-  }
   .text-xl {
     font-size: var(--text-xl);
     line-height: var(--tw-leading, var(--text-xl--line-height));
@@ -634,9 +630,6 @@
   }
   .text-blue-500 {
     color: var(--color-blue-500);
-  }
-  .text-red-200 {
-    color: var(--color-red-200);
   }
   .text-red-500 {
     color: var(--color-red-500);
@@ -672,6 +665,35 @@
       }
     }
   }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes fade-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes slide-from-right {
+  from {
+    transform: translateX(90px);
+  }
+}
+@keyframes slide-to-left {
+  to {
+    transform: translateX(-90px);
+  }
+}
+.slide-it {
+  view-transition-name: slide-it;
+}
+::view-transition-old(slide-it) {
+  animation: 180ms cubic-bezier(0.4, 0, 1, 1) both fade-out, 600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-to-left;
+}
+::view-transition-new(slide-it) {
+  animation: 420ms cubic-bezier(0, 0, 0.2, 1) 90ms both fade-in, 600ms cubic-bezier(0.4, 0, 0.2, 1) both slide-from-right;
 }
 @keyframes spin {
   to {

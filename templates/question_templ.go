@@ -35,7 +35,7 @@ func Question(question database.Question, questionIndex int64) templ.Component {
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div hx-target=\"this\" hx-swap=\"outerHTML\" class=\"bg-[#393E46] max-w-lg mx-auto border-solid border-2 rounded m-5 p-2.5\"><p class=\"text-[#EEEEEE] text-xl font-bold\">")
+		templ_7745c5c3_Err = templruntime.WriteString(templ_7745c5c3_Buffer, 1, "<div hx-target=\"this\" hx-swap=\"outerHTML transition:true\" class=\"slide-it bg-[#393E46] max-w-lg mx-auto border-solid border-2 rounded m-5 p-2.5\"><p class=\"text-[#EEEEEE] text-xl font-bold\">")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}

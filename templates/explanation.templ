@@ -3,8 +3,8 @@ package templates
 templ Explanation(question, explanation string){
     <div
         hx-target="this"
-        hx-swap="outerHTML"
-        class="bg-[#393E46] max-w-lg mx-auto border-solid border-2 rounded m-5 p-2.5"
+        hx-swap="outerHTML transition:true"
+        class="slide-it bg-[#393E46] max-w-lg mx-auto border-solid border-2 rounded m-5 p-2.5"
     >
         <p class="text-[#EEEEEE] text-xl font-bold">{question}</p>
         <p class="text-[#DDDDDD] my-10 p-1">{explanation}</p>
